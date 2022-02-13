@@ -83,7 +83,7 @@ function Results() {
         </div>
       ) : (
         <>
-          <div className="grid flex-wrap justify-center p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex">
+          <div className="grid max-w-[1500px] flex-wrap justify-center p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex">
             {data.map((nft) => (
               <NftCard key={nft.id} nft={nft} />
             ))}
