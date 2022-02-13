@@ -119,7 +119,7 @@ function NftCard({ nft }) {
                   <OpenSea className="h-4 w-4" />
                   <div>
                     <a
-                      rel="opensea"
+                      rel="noreferrer"
                       href={`https://opensea.io/assets/0x0fb69d1dc9954a7f60e83023916f2551e24f52fc/${nft.attributes.tokenId}`}
                       className="focus:outline-none"
                       target="_blank"
