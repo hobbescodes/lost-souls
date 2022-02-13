@@ -2,7 +2,6 @@ import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { LinkIcon as OpenSea, XIcon } from "@heroicons/react/outline";
-import Link from "next/link";
 
 function NftCard({ nft }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -98,9 +97,9 @@ function NftCard({ nft }) {
                         1
                       )}`}</span>
                     </p>
-                    {nft.attributes.attributes.map((e) => {
+                    {nft.attributes.attributes.map((e, index) => {
                       return (
-                        <div className="flex justify-center">
+                        <div key={index} className="flex justify-center">
                           <p className="font-bold">
                             {e.trait_type}:{" "}
                             <span className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
