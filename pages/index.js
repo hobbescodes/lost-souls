@@ -6,22 +6,24 @@ import ScrollToTop from "../components/ScrollToTop";
 export default function Home() {
   return (
     <div className="flex h-screen flex-col items-center space-y-4 overflow-scroll scroll-smooth bg-black bg-no-repeat text-white">
-      <Head>
-        <title>Lost Souls Rarity</title>
-        <meta
-          name="description"
-          content="Rarity Ranker designed for Lost Souls Sanctuary"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <div className="my-4 space-y-2">
+        <Head>
+          <title>Lost Souls Rarity</title>
+          <meta
+            name="description"
+            content="Rarity Ranker designed for Lost Souls Sanctuary"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <Header />
+        <Header />
 
-      <div className="mb-1">
-        <Results />
+        <div className="mb-1">
+          <Results />
+        </div>
+
+        <ScrollToTop />
       </div>
-
-      <ScrollToTop />
     </div>
   );
 }
