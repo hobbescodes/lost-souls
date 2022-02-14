@@ -73,7 +73,7 @@ function NftCard({ nft }) {
               leaveTo="opacity-0 scale-95"
             >
               <div className="relative my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl border-4 border-black bg-black p-6 text-left align-middle text-white shadow-xl transition-all">
-                <div className="flex justify-between py-4">
+                <div className="flex flex-col items-center justify-between space-y-3 py-4 sm:flex-row sm:space-y-0">
                   <div className="flex flex-col items-start justify-center space-y-1">
                     <Dialog.Title
                       as="h3"
@@ -82,7 +82,7 @@ function NftCard({ nft }) {
                       {`Lost Soul #${nft.attributes.tokenId}`}
                     </Dialog.Title>
                     <div className="relative h-48 w-48">
-                      <p className="absolute top-1 -left-1 z-50 rounded-r-lg rounded-tl-lg bg-green-400 p-1 text-xs text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
+                      <p className="absolute top-1 -left-1 z-50 rounded-r-md rounded-tl-md bg-green-400 p-1 text-xs text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
                       <p className="text-md absolute top-[4px] -left-1 rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black">
                         ...
                       </p>
@@ -94,7 +94,7 @@ function NftCard({ nft }) {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-1 flex-col items-end justify-center space-y-1 px-3 text-sm">
+                  <div className="flex flex-col justify-between space-y-1 px-3 text-sm">
                     <p className="font-bold">
                       Score:{" "}
                       <span className="font-normal text-green-400">{`${nft.attributes.rarity.toFixed(
@@ -103,7 +103,7 @@ function NftCard({ nft }) {
                     </p>
                     {nft.attributes.attributes.map((e, index) => {
                       return (
-                        <div key={index} className="flex justify-center">
+                        <div key={index} className="flex justify-between">
                           <p className="font-bold">
                             {e.trait_type}:{" "}
                             <span className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
