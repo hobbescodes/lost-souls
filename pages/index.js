@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Results from "../components/Results";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center space-y-4 overflow-scroll bg-black bg-no-repeat text-white">
+    <div className="flex h-screen flex-col items-center space-y-4 overflow-scroll scroll-smooth bg-black bg-no-repeat text-white">
       <Head>
         <title>Lost Souls Rarity</title>
         <meta
@@ -19,6 +20,8 @@ export default function Home() {
       <div className="mb-1">
         <Results />
       </div>
+
+      <ScrollToTop />
     </div>
   );
 }

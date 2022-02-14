@@ -82,6 +82,10 @@ function NftCard({ nft }) {
                       {`Lost Soul #${nft.attributes.tokenId}`}
                     </Dialog.Title>
                     <div className="relative h-48 w-48">
+                      <p className="absolute top-1 -left-1 z-50 rounded-r-lg rounded-tl-lg bg-green-400 p-1 text-xs text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
+                      <p className="text-md absolute top-[4px] -left-1 rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black">
+                        ...
+                      </p>
                       <Image
                         className="rounded-md"
                         src={nft.attributes.image}

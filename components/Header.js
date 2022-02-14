@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function Header() {
   return (
-    <div className="flex w-full justify-center bg-black">
+    <div id="top" className="flex w-full justify-center bg-black">
       <header className="m-4 flex h-auto flex-col items-center justify-between sm:flex-row">
         <div className="flex items-center justify-center space-x-4">
           <Image
