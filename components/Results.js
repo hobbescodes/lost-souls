@@ -34,10 +34,7 @@ function Results() {
   };
 
   return (
-    <div
-      id="top"
-      className="relative mx-auto mb-12 flex flex-col items-center space-y-4"
-    >
+    <div className="relative mx-auto mb-12 flex flex-col items-center space-y-4">
       <div className="flex flex-col items-center justify-center space-y-4 bg-black sm:flex-row sm:space-y-0 sm:space-x-4">
         <div className="relative rounded-md">
           <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
