@@ -93,7 +93,9 @@ function Results() {
         <div className="relative items-center justify-center left-[70px] z-20 w-56">
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+                <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white">
+                
                   Filter
                   <ChevronDownIcon
                     className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100"
