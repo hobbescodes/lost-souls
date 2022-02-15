@@ -76,7 +76,7 @@ function Results() {
               className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
               onClick={() => getNFT()}
             >
-              Get NFT
+              Find a Soul
             </button>
           </div>
           <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
