@@ -5,7 +5,7 @@ import ScrollToTop from "../components/ScrollToTop";
 
 export default function Home() {
   return (
-    <div className="flex h-screen flex-col items-center space-y-4 overflow-scroll scroll-smooth bg-black bg-no-repeat text-white">
+    <div className="flex h-screen flex-col items-center space-y-4 [-webkit-overflow-scrolling:touch] overflow-scroll scroll-smooth bg-black text-white">
       <div className="my-4 space-y-2">
         <Head>
           <title>Lost Souls Rarity</title>
@@ -18,7 +18,7 @@ export default function Home() {
 
         <Header />
 
-        <div className="mb-1">
+        <div className="mb-1 [-webkit-overflow-scrolling:touch]">
           <Results />
         </div>
 
