@@ -112,8 +112,8 @@ function Results() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute -right-[66px] sm:right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="px-1 py-1 max-h-[160px] overflow-y-scroll">
+                <Menu.Items className="absolute -right-[66px] sm:right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg focus:outline-none">
+                  <div className="px-1 py-1 max-h-[240px] overflow-y-scroll">
                     {backgrounds.map((background, index) => <Menu.Item key={index}>
                       {({ active }) => (
                         <button
