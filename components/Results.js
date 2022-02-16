@@ -243,7 +243,7 @@ function Results() {
           <div className="inline-flex flex-col items-center justify-center space-y-4">
           <p className="font-bold p-4 text-center">Sorry, you have entered an Invalid Token ID. Please try again.</p>
           <div>
-          <Image src="https://gateway.ipfs.io/ipfs/QmZ6YnTSEgoDCCzeMHh9ZTf1PnkwfDViVmme73M94p4vQ6" width={100} height={100} className="rounded-full" />
+          <Image src="https://gateway.ipfs.io/ipfs/QmZ6YnTSEgoDCCzeMHh9ZTf1PnkwfDViVmme73M94p4vQ6" width={200} height={200} className="rounded-full" />
           </div>
           
         </div>
