@@ -1,8 +1,9 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { useMoralis, ByMoralis, useMoralisQuery } from "react-moralis";
 import NftCard from "./NftCard";
 import { SearchIcon, ChevronDownIcon } from "@heroicons/react/solid";
+import Image from "next/image";
 
 function Results() {
   const [limit, setLimit] = useState(18);
@@ -201,14 +202,14 @@ function Results() {
         style={{ marginLeft: "auto", marginRight: "auto" }}
       /> */}
 
-{nft !== undefined ? (
+{nft != undefined ? (
         <>
           <div className={`justify-center p-4 ${nft.length > 1 && "grid max-w-[1500px] flex-wrap sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex"}`}>
             {nft.slice(0, limit).map((nft) => (
               <NftCard key={nft.id} nft={nft} />
             ))}
           </div>
-          <div className={`relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer ${nft.length == 1 && "hidden"}`}>
+          <div className={`relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer ${nft.length <= 1 && "hidden"}`}>
             <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
             <button
               className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
@@ -219,7 +220,7 @@ function Results() {
           </div>
         </>
       ) : (
-        <>
+          <>
           <div className="grid max-w-[1500px] flex-wrap justify-center p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:flex">
             {data.map((nft) => (
               <NftCard key={nft.id} nft={nft} />
@@ -235,7 +236,18 @@ function Results() {
             </button>
           </div>
         </>
+        
       )}
+
+      {nft != undefined && nft.length == 0 ? (
+          <div className="inline-flex flex-col items-center justify-center space-y-4">
+          <p className="font-bold p-4 text-center">Sorry, you have entered an Invalid Token ID. Please try again.</p>
+          <div>
+          <Image src="https://gateway.ipfs.io/ipfs/QmZ6YnTSEgoDCCzeMHh9ZTf1PnkwfDViVmme73M94p4vQ6" width={100} height={100} className="rounded-full" />
+          </div>
+          
+        </div>
+      ) : null}
     </div>
   );
 }
