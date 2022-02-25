@@ -14,6 +14,8 @@ function NftCard({ nft }) {
     setIsOpen(true);
   }
 
+  console.log(nft);
+
   return (
     <div>
       <div className="relative m-4 transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
@@ -33,6 +35,16 @@ function NftCard({ nft }) {
             </div>
             <p>{`Lost Soul ${nft.attributes.tokenId}`}</p>
             <p>{`Rank #${nft.attributes.rank}`}</p>
+            <p>{`Quarks: ${nft.attributes.quarks}`}</p>
+            <p
+              className={`rounded-lg p-1 text-black ${
+                nft.attributes.class === "Super Rare" && "bg-orange-400"
+              } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
+                nft.attributes.class === "Uncommon" && "bg-blue-400"
+              } ${nft.attributes.class === "Common" && "bg-purple-400"}`}
+            >
+              {nft.attributes.class}
+            </p>
           </div>
         </div>
       </div>
@@ -82,7 +94,7 @@ function NftCard({ nft }) {
                       {`Lost Soul #${nft.attributes.tokenId}`}
                     </Dialog.Title>
                     <div className="relative h-48 w-48">
-                      <p className="absolute top-1 -left-1 z-50 rounded-r-md font-bold rounded-tl-md bg-green-400 p-1 text-xs text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
+                      <p className="absolute top-1 -left-1 z-50 rounded-r-md rounded-tl-md bg-green-400 p-1 text-xs font-bold text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
                       <p className="text-md absolute top-[4px] -left-1 rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black">
                         ...
                       </p>

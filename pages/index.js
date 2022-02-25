@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "../components/Header";
+import Navigation from "../components/Navigation";
 import Results from "../components/Results";
-import ScrollToTop from "../components/ScrollToTop";
 
 export default function Home() {
   return (
@@ -18,11 +18,11 @@ export default function Home() {
 
         <Header />
 
+        <Navigation />
+
         <div className="mb-1">
           <Results />
         </div>
-
-        <ScrollToTop />
       </div>
     </div>
   );
