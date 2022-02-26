@@ -1,4 +1,4 @@
-export function Loader({ text = "Loading..." }) {
+export default function Loader({ text = "Loading..." }) {
   return (
     <div className="flex flex-col items-center justify-center pt-16 text-xl font-light">
       <svg

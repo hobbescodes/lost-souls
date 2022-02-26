@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
       serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}
     >
       <RecoilRoot>
-      <Component {...pageProps} />
+        <Component {...pageProps} />
       </RecoilRoot>
     </MoralisProvider>
   );

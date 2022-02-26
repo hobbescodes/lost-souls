@@ -14,18 +14,44 @@ function NftCard({ nft }) {
     setIsOpen(true);
   }
 
-  console.log(nft);
-
   return (
     <div>
       <div className="relative m-4 transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-        <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+        <div
+          className={`absolute inset-0 rounded-md ${
+            nft.attributes.class === "Super Rare" && "bg-orange-400"
+          } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
+            nft.attributes.class === "Uncommon" && "bg-blue-400"
+          } ${nft.attributes.class === "Common" && "bg-purple-400"} blur-lg`}
+        ></div>
         <div className="relative rounded-xl bg-black">
           <div
             onClick={openModal}
             className="flex flex-col items-center space-y-2 rounded-lg p-2"
           >
             <div className="relative h-52 w-52">
+              <div
+                className={`absolute top-1 -right-1 z-50 w-20 rounded-l-md rounded-tr-md text-center ${
+                  nft.attributes.class === "Super Rare" && "bg-orange-400"
+                } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
+                  nft.attributes.class === "Uncommon" && "bg-blue-400"
+                } ${
+                  nft.attributes.class === "Common" && "bg-purple-400"
+                } p-1 text-xs font-bold text-black shadow shadow-black`}
+              >
+                {nft.attributes.class}
+              </div>
+              <p
+                className={`text-md absolute top-[4px] -right-1 rounded-r-lg ${
+                  nft.attributes.class === "Super Rare" && "bg-orange-400"
+                } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
+                  nft.attributes.class === "Uncommon" && "bg-blue-400"
+                } ${
+                  nft.attributes.class === "Common" && "bg-purple-400"
+                } p-1 text-black shadow shadow-black`}
+              >
+                ...
+              </p>
               <Image
                 className="rounded-md"
                 src={nft.attributes.image}
@@ -34,17 +60,13 @@ function NftCard({ nft }) {
               />
             </div>
             <p>{`Lost Soul ${nft.attributes.tokenId}`}</p>
-            <p>{`Rank #${nft.attributes.rank}`}</p>
+            {nft.attributes.rank < 22 ? (
+              <p>Rank #1</p>
+            ) : (
+              <p>{`Rank #${nft.attributes.rank}`}</p>
+            )}
+
             <p>{`Quarks: ${nft.attributes.quarks}`}</p>
-            <p
-              className={`rounded-lg p-1 text-black ${
-                nft.attributes.class === "Super Rare" && "bg-orange-400"
-              } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
-                nft.attributes.class === "Uncommon" && "bg-blue-400"
-              } ${nft.attributes.class === "Common" && "bg-purple-400"}`}
-            >
-              {nft.attributes.class}
-            </p>
           </div>
         </div>
       </div>
@@ -94,7 +116,13 @@ function NftCard({ nft }) {
                       {`Lost Soul #${nft.attributes.tokenId}`}
                     </Dialog.Title>
                     <div className="relative h-48 w-48">
-                      <p className="absolute top-1 -left-1 z-50 rounded-r-md rounded-tl-md bg-green-400 p-1 text-xs font-bold text-black shadow shadow-black">{`Rank #${nft.attributes.rank}`}</p>
+                      <div className="absolute top-1 -left-1 z-50 rounded-r-md rounded-tl-md bg-green-400 p-1 text-xs font-bold text-black shadow shadow-black">
+                        {nft.attributes.rank < 22 ? (
+                          <p>Rank #1</p>
+                        ) : (
+                          <p>{`Rank #${nft.attributes.rank}`}</p>
+                        )}
+                      </div>
                       <p className="text-md absolute top-[4px] -left-1 rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black">
                         ...
                       </p>
@@ -107,23 +135,29 @@ function NftCard({ nft }) {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between space-y-1 px-3 text-sm">
-                    <p className="font-bold">
-                      Score:{" "}
-                      <span className="font-normal text-green-400">{`${nft.attributes.rarity.toFixed(
-                        1
-                      )}`}</span>
-                    </p>
+                    <div className="flex justify-between space-x-2">
+                      <p className="font-bold">Score:</p>
+                      <p className="font-normal text-green-400">{`${nft.attributes.rarity.toFixed(
+                        2
+                      )}`}</p>
+                    </div>
+
                     {nft.attributes.attributes.map((e, index) => {
-                      return (
-                        <div key={index} className="flex justify-between">
-                          <p className="font-bold">
-                            {e.trait_type}:{" "}
-                            <span className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
-                              1
-                            )}`}</span>
-                          </p>
-                        </div>
-                      );
+                      if (e.trait_type != "TraitCount") {
+                        return (
+                          <div
+                            key={index}
+                            className="flex justify-between space-x-2"
+                          >
+                            <p className="font-bold">{e.trait_type}:</p>
+                            <p className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
+                              2
+                            )}`}</p>
+                          </div>
+                        );
+                      } else {
+                        return null;
+                      }
                     })}
                   </div>
                 </div>

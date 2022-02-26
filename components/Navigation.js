@@ -7,7 +7,7 @@ import { limitState } from "../atoms/LimitAtom";
 import { nftsState } from "../atoms/NftsAtom";
 
 function Navigation() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   const { Moralis } = useMoralis();
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
@@ -204,31 +204,50 @@ function Navigation() {
   const allShirts = shirts.sort();
 
   const getNFT = async () => {
-    const query = new Moralis.Query("LostSoulsSanctuary");
-    query.equalTo("tokenId", token);
-    let selectedNFT = await query.find();
+    const nfts = await Moralis.Cloud.run("LostSouls");
+    let selectedNFT = nfts.filter((nft) => nft.attributes.tokenId === token);
     setNft(selectedNFT);
   };
 
   const filteredNFTs = async (index, value) => {
-    const query = new Moralis.Query("LostSoulsSanctuary");
-    const count = await query.count();
-    query.limit(count);
-    const results = await query.find();
+    const nfts = await Moralis.Cloud.run("LostSouls");
 
-    let filteredNFTs = results.filter(
+    let filteredNFTs = nfts.filter(
       (nft) => nft.attributes.attributes[index].value === value
     );
     setNft(filteredNFTs);
+  };
+
+  const retrieveNFT = () => {
+    setNft(undefined);
+    if (token % 1 == 0 && token > 0 && token < 10000) {
+      getNFT();
+    } else {
+      setNft([]);
+    }
+  };
+
+  const retrieveFilteredNFTs = (index, value) => {
+    setNft(undefined);
+    setLimit(18);
+    filteredNFTs(index, value);
+  };
+
+  const resetNFTs = async () => {
+    const nfts = await Moralis.Cloud.run("LostSouls");
+
+    let allNFTs = nfts;
+    setNft(allNFTs);
     setLimit(18);
   };
 
   const reset = () => {
     setNft(undefined);
+    resetNFTs();
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 bg-black sm:flex-row sm:space-y-0 sm:space-x-4">
+    <div className="flex flex-col items-center justify-center space-y-4 bg-black md:flex-row md:space-y-0 md:space-x-4">
       <div className="relative rounded-md">
         <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
           <SearchIcon className="h-5 w-5 text-gray-400" />
@@ -237,7 +256,7 @@ function Navigation() {
           className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
           type="text"
           placeholder="Search by Token ID"
-          onChange={(e) => setToken(e.target.value.toString())}
+          onChange={(e) => setToken(e.target.value)}
         />
       </div>
       <div className="relative flex items-center justify-center space-x-2">
@@ -245,7 +264,7 @@ function Navigation() {
           <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
           <button
             className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
-            onClick={() => getNFT()}
+            onClick={() => retrieveNFT()}
           >
             Find a Soul
           </button>
@@ -260,7 +279,7 @@ function Navigation() {
           </button>
         </div>
       </div>
-      <div className="relative left-[70px] z-20 w-56 items-center justify-center">
+      <div className="relative left-[70px] z-20 w-56 items-center justify-center md:left-0">
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
@@ -288,7 +307,7 @@ function Navigation() {
                 {backgrounds.map((background, index) => (
                   <Menu.Item key={index}>
                     <button
-                      onClick={() => filteredNFTs(0, background)}
+                      onClick={() => retrieveFilteredNFTs(0, background)}
                       className="group flex w-full
                           items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
                     >
@@ -300,7 +319,7 @@ function Navigation() {
                 {bodies.map((body, index) => (
                   <Menu.Item key={index}>
                     <button
-                      onClick={() => filteredNFTs(1, body)}
+                      onClick={() => retrieveFilteredNFTs(1, body)}
                       className="group flex w-full
                           items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
                     >
@@ -312,7 +331,7 @@ function Navigation() {
                 {allHeadware.map((headware, index) => (
                   <Menu.Item key={index}>
                     <button
-                      onClick={() => filteredNFTs(2, headware)}
+                      onClick={() => retrieveFilteredNFTs(2, headware)}
                       className="group flex w-full
                           items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
                     >
@@ -324,7 +343,7 @@ function Navigation() {
                 {allFaces.map((face, index) => (
                   <Menu.Item key={index}>
                     <button
-                      onClick={() => filteredNFTs(3, face)}
+                      onClick={() => retrieveFilteredNFTs(3, face)}
                       className="group flex w-full
                           items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
                     >
@@ -336,7 +355,7 @@ function Navigation() {
                 {allShirts.map((shirt, index) => (
                   <Menu.Item key={index}>
                     <button
-                      onClick={() => filteredNFTs(4, shirt)}
+                      onClick={() => retrieveFilteredNFTs(4, shirt)}
                       className="group flex w-full
                           items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
                     >

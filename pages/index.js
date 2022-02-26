@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Header from "../components/Header";
-import Navigation from "../components/Navigation";
 import Results from "../components/Results";
 
 export default function Home() {
@@ -17,8 +16,6 @@ export default function Home() {
         </Head>
 
         <Header />
-
-        <Navigation />
 
         <div className="mb-1">
           <Results />
