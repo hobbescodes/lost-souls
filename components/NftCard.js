@@ -31,7 +31,7 @@ function NftCard({ nft }) {
           >
             <div className="relative h-52 w-52">
               <div
-                className={`absolute top-1 -right-1 z-50 w-20 rounded-l-md rounded-tr-md text-center ${
+                className={`absolute top-1 -right-1 z-10 w-20 rounded-l-md rounded-tr-md text-center ${
                   nft.attributes.class === "Super Rare" && "bg-orange-400"
                 } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
                   nft.attributes.class === "Uncommon" && "bg-blue-400"
