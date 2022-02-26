@@ -24,14 +24,14 @@ function NftCard({ nft }) {
             nft.attributes.class === "Uncommon" && "bg-blue-400"
           } ${nft.attributes.class === "Common" && "bg-purple-400"} blur-lg`}
         ></div>
-        <div className="relative rounded-xl bg-black">
+        <div className="relative rounded-xl bg-black pb-3">
           <div
             onClick={openModal}
-            className="flex flex-col items-center space-y-2 rounded-lg p-2"
+            className="flex flex-col items-center space-y-2 rounded-lg"
           >
             <div className="relative h-52 w-52">
               <div
-                className={`absolute top-1 -right-1 z-10 w-20 rounded-l-md rounded-tr-md text-center ${
+                className={`absolute top-2 -right-1 z-10 w-20 rounded-l-md rounded-tr-md text-center ${
                   nft.attributes.class === "Super Rare" && "bg-orange-400"
                 } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
                   nft.attributes.class === "Uncommon" && "bg-blue-400"
@@ -42,7 +42,7 @@ function NftCard({ nft }) {
                 {nft.attributes.class}
               </div>
               <p
-                className={`text-md absolute top-[4px] -right-1 rounded-r-lg ${
+                className={`text-md absolute top-3 -right-1 rounded-r-lg ${
                   nft.attributes.class === "Super Rare" && "bg-orange-400"
                 } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
                   nft.attributes.class === "Uncommon" && "bg-blue-400"
@@ -53,7 +53,6 @@ function NftCard({ nft }) {
                 ...
               </p>
               <Image
-                className="rounded-md"
                 src={nft.attributes.image}
                 layout="fill"
                 objectFit="contain"
