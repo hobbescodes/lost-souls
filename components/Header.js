@@ -18,7 +18,7 @@ function Header() {
         </div>
       </div>
 
-      <div className="md:ml-20">
+      <div className="flex">
         <Navigation />
       </div>
     </header>

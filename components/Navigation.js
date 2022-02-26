@@ -7,10 +7,11 @@ import { limitState } from "../atoms/LimitAtom";
 import { nftsState } from "../atoms/NftsAtom";
 
 function Navigation() {
-  const [token, setToken] = useState(null);
+  const [tokenOrAddress, setTokenOrAddress] = useState(null);
   const { Moralis } = useMoralis();
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
+  const [tokenIds, setTokenIds] = useState([]);
 
   const backgrounds = [
     "Blue",
@@ -205,7 +206,9 @@ function Navigation() {
 
   const getNFT = async () => {
     const nfts = await Moralis.Cloud.run("LostSouls");
-    let selectedNFT = nfts.filter((nft) => nft.attributes.tokenId === token);
+    let selectedNFT = nfts.filter(
+      (nft) => nft.attributes.tokenId === tokenOrAddress
+    );
     setNft(selectedNFT);
   };
 
@@ -218,9 +221,52 @@ function Navigation() {
     setNft(filteredNFTs);
   };
 
+  const addressNFTs = async () => {
+    await Moralis.start({
+      serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+      appId: process.env.NEXT_PUBLIC_APP_ID,
+    });
+    const options = {
+      address: tokenOrAddress,
+      token_address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+    };
+    const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
+    NFTs.result.map((nft) => tokenIds.push(nft.token_id));
+    console.log(tokenIds);
+
+    const nfts = await Moralis.Cloud.run("LostSouls");
+
+    let filteredNFTs = nfts.filter((nft) => {
+      for (let i = 0; i < tokenIds.length; i++) {
+        if (nft.attributes.tokenId === tokenIds[i]) {
+          return nft;
+        }
+      }
+    });
+    setNft(filteredNFTs);
+    setTokenIds([]);
+  };
+
+  const retrieveAddressNFTs = () => {
+    setNft(undefined);
+    setLimit(18);
+
+    const re = /[0-9A-Fa-f]{6}/g;
+
+    if (re.test(tokenOrAddress)) {
+      addressNFTs();
+    } else {
+      setNft([]);
+    }
+  };
+
   const retrieveNFT = () => {
     setNft(undefined);
-    if (token % 1 == 0 && token > 0 && token < 10000) {
+    if (
+      tokenOrAddress % 1 == 0 &&
+      tokenOrAddress > 0 &&
+      tokenOrAddress < 10000
+    ) {
       getNFT();
     } else {
       setNft([]);
@@ -255,8 +301,8 @@ function Navigation() {
         <input
           className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
           type="text"
-          placeholder="Search by Token ID"
-          onChange={(e) => setToken(e.target.value)}
+          placeholder="Token ID or Address"
+          onChange={(e) => setTokenOrAddress(e.target.value)}
         />
       </div>
       <div className="relative flex items-center justify-center space-x-2">
@@ -267,6 +313,15 @@ function Navigation() {
             onClick={() => retrieveNFT()}
           >
             Find a Soul
+          </button>
+        </div>
+        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
+          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+          <button
+            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            onClick={() => retrieveAddressNFTs()}
+          >
+            Address
           </button>
         </div>
         <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">

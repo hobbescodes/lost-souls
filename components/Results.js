@@ -31,8 +31,6 @@ function Results() {
     allNFTs();
   }, []);
 
-  console.log(nft);
-
   return (
     <div className="relative mx-auto mb-12 flex flex-col items-center space-y-4">
       {nft != undefined ? (
@@ -66,7 +64,8 @@ function Results() {
           ) : (
             <div className="inline-flex flex-col items-center justify-center space-y-4">
               <p className="p-4 text-center font-bold">
-                Sorry, you have entered an Invalid Token ID. Please try again.
+                Sorry, you have entered an Invalid Token ID or an Invalid Wallet
+                Address. Please try again.
               </p>
               <div>
                 <Image
