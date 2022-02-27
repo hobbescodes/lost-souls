@@ -13,6 +13,7 @@ function Navigation() {
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
+  const [sniperPrice, setSniperPrice] = useState(null);
 
   const backgrounds = [
     "Blue",
@@ -252,6 +253,23 @@ function Navigation() {
     }
   };
 
+  const sniperNFT = async () => {
+    await Moralis.start({
+      serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+      appId: process.env.NEXT_PUBLIC_APP_ID,
+    });
+
+    const options = {
+      address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+      days: "1",
+    };
+    const NFTLowestPrice = await Moralis.Web3API.token.getNFTLowestPrice(
+      options
+    );
+
+    setSniperPrice(NFTLowestPrice.price / Math.pow(10, 18));
+  };
+
   const retrieveAddressNFTs = () => {
     setNft(undefined);
     setLimit(18);
@@ -308,6 +326,7 @@ function Navigation() {
           onChange={(e) => setTokenOrAddress(e.target.value)}
         />
       </div>
+
       <div className="relative flex items-center justify-center space-x-2">
         <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
           <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
@@ -336,8 +355,17 @@ function Navigation() {
             Reset
           </button>
         </div>
+        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
+          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+          <button
+            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            onClick={() => sniperNFT()}
+          >
+            {sniperPrice != null ? sniperPrice + " ETH" : "Sniper"}
+          </button>
+        </div>
       </div>
-      <div className="relative left-[70px] z-20 w-56 items-center justify-center md:left-0">
+      <div className="relative right-8 z-20 w-[20px] items-center justify-center md:right-0">
         <Menu as="div" className="relative inline-block text-left">
           <div>
             <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>

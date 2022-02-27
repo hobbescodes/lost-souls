@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 
 function Header() {
   return (
-    <header className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between space-y-4 bg-black lg:flex-row lg:space-y-0 lg:space-x-4">
+    <header className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between space-y-4 bg-black lg:space-y-0 lg:space-x-4 xl:flex-row">
       <div className="m-4 flex h-auto flex-col items-center justify-between sm:flex-row">
         <div className="flex items-center justify-center space-x-4">
           <Image
