@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/react/outline";
+import { isAddress } from "ethers/lib/utils";
 import { Fragment, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useRecoilState } from "recoil";
@@ -12,8 +13,6 @@ function Navigation() {
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
-
-  const contract = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
 
   const backgrounds = [
     "Blue",
@@ -230,32 +229,34 @@ function Navigation() {
     });
     const options = {
       address: tokenOrAddress,
-      token_address: contract,
+      token_address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
 
-    NFTs.result.map((nft) => tokenIds.push(nft.token_id));
+    if (NFTs.result == []) {
+      setNft([]);
+    } else {
+      NFTs.result.map((nft) => tokenIds.push(nft.token_id));
 
-    const nfts = await Moralis.Cloud.run("LostSouls");
+      const nfts = await Moralis.Cloud.run("LostSouls");
 
-    let filteredNFTs = nfts.filter((nft) => {
-      for (let i = 0; i < tokenIds.length; i++) {
-        if (nft.attributes.tokenId === tokenIds[i]) {
-          return nft;
+      let filteredNFTs = nfts.filter((nft) => {
+        for (let i = 0; i < tokenIds.length; i++) {
+          if (nft.attributes.tokenId === tokenIds[i]) {
+            return nft;
+          }
         }
-      }
-    });
-    setNft(filteredNFTs);
-    setTokenIds([]);
+      });
+      setNft(filteredNFTs);
+      setTokenIds([]);
+    }
   };
 
   const retrieveAddressNFTs = () => {
     setNft(undefined);
     setLimit(18);
 
-    const re = /[0-9A-Fa-f]{6}/g;
-
-    if (re.test(tokenOrAddress)) {
+    if (isAddress(tokenOrAddress) == true) {
       addressNFTs();
     } else {
       setNft([]);
