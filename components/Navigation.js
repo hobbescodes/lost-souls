@@ -233,7 +233,6 @@ function Navigation() {
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
     NFTs.result.map((nft) => tokenIds.push(nft.token_id));
-    console.log(tokenIds);
 
     const nfts = await Moralis.Cloud.run("LostSouls");
 

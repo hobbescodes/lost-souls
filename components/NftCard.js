@@ -41,17 +41,15 @@ function NftCard({ nft }) {
               >
                 {nft.attributes.class}
               </div>
-              <p
-                className={`text-md absolute top-3 -right-1 rounded-r-lg ${
+              <div
+                className={`text-md absolute top-3 -right-1 h-7 w-[2px] rounded-r-lg ${
                   nft.attributes.class === "Super Rare" && "bg-orange-400"
                 } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
                   nft.attributes.class === "Uncommon" && "bg-blue-400"
                 } ${
                   nft.attributes.class === "Common" && "bg-purple-400"
                 } p-1 text-black shadow shadow-black`}
-              >
-                ...
-              </p>
+              ></div>
               <Image
                 src={nft.attributes.image}
                 layout="fill"
@@ -122,9 +120,7 @@ function NftCard({ nft }) {
                           <p>{`Rank #${nft.attributes.rank}`}</p>
                         )}
                       </div>
-                      <p className="text-md absolute top-[4px] -left-1 rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black">
-                        ...
-                      </p>
+                      <div className="text-md absolute top-[4px] -left-1 h-8 w-[2px] rounded-l-lg bg-green-400 p-1 text-black shadow shadow-black"></div>
                       <Image
                         className="rounded-md"
                         src={nft.attributes.image}
