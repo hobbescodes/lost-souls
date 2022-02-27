@@ -234,19 +234,24 @@ function Navigation() {
       token_address: contract,
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
-    NFTs.result.map((nft) => tokenIds.push(nft.token_id));
 
-    const nfts = await Moralis.Cloud.run("LostSouls");
+    if (NFTs.result == []) {
+      setNft([]);
+    } else {
+      NFTs.result.map((nft) => tokenIds.push(nft.token_id));
 
-    let filteredNFTs = nfts.filter((nft) => {
-      for (let i = 0; i < tokenIds.length; i++) {
-        if (nft.attributes.tokenId === tokenIds[i]) {
-          return nft;
+      const nfts = await Moralis.Cloud.run("LostSouls");
+
+      let filteredNFTs = nfts.filter((nft) => {
+        for (let i = 0; i < tokenIds.length; i++) {
+          if (nft.attributes.tokenId === tokenIds[i]) {
+            return nft;
+          }
         }
-      }
-    });
-    setNft(filteredNFTs);
-    setTokenIds([]);
+      });
+      setNft(filteredNFTs);
+      setTokenIds([]);
+    }
   };
 
   const retrieveAddressNFTs = () => {
