@@ -73,7 +73,7 @@ function Results() {
               </p>
 
               <p className="p-4 text-center">
-                2: The Wallet Address you have entered doesn't currently own a
+                2: The Wallet Address you have entered doesnt currently own a
                 Lost Soul. If this is the case, and it is you Wallet Address,
                 head to{" "}
                 <span className="text-blue-500">
