@@ -62,7 +62,7 @@ function Results() {
               </div>
             </>
           ) : (
-            <div className="m-4 inline-flex flex-col items-center justify-center space-y-4">
+            <div className="m-4 inline-flex max-w-xl flex-col items-center justify-center space-y-4">
               <p className="p-4 text-center font-bold">
                 Sorry, there seems to be something wrong. It could be a few
                 different things:

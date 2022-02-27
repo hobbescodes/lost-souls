@@ -14,6 +14,8 @@ function Navigation() {
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
 
+  const contract = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+
   const backgrounds = [
     "Blue",
     "Green",
@@ -229,7 +231,7 @@ function Navigation() {
     });
     const options = {
       address: tokenOrAddress,
-      token_address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+      token_address: contract,
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
     NFTs.result.map((nft) => tokenIds.push(nft.token_id));
