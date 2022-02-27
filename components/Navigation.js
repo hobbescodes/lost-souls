@@ -1,6 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/react/outline";
-import { isAddress } from "ethers/lib/utils";
 import { Fragment, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { useRecoilState } from "recoil";
@@ -254,7 +253,9 @@ function Navigation() {
     setNft(undefined);
     setLimit(18);
 
-    if (isAddress(tokenOrAddress) == true) {
+    const re = /[0-9A-Fa-f]{6}/g;
+
+    if (re.test(tokenOrAddress)) {
       addressNFTs();
     } else {
       setNft([]);
