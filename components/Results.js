@@ -62,11 +62,32 @@ function Results() {
               </div>
             </>
           ) : (
-            <div className="inline-flex flex-col items-center justify-center space-y-4">
+            <div className="m-4 inline-flex flex-col items-center justify-center space-y-4">
               <p className="p-4 text-center font-bold">
-                Sorry, you have entered an Invalid Token ID or an Invalid Wallet
-                Address. Please try again.
+                Sorry, there seems to be something wrong. It could be a few
+                different things:
               </p>
+              <p className="p-4 text-center">
+                1: You entered an Invalid Token ID or an Invalid Wallet Address.
+                In that case, please try again!
+              </p>
+
+              <p className="p-4 text-center">
+                2: The Wallet Address you have entered doesn't currently own a
+                Lost Soul. If this is the case, and it is you Wallet Address,
+                head to{" "}
+                <span className="text-blue-500">
+                  <a
+                    rel="noreferrer"
+                    href="https://opensea.io/collection/lostsoulssanctuary"
+                    className="focus:outline-none"
+                    target="_blank"
+                  >
+                    OpenSea
+                  </a>
+                </span>
+              </p>
+
               <div>
                 <Image
                   src="https://gateway.ipfs.io/ipfs/QmYXWWQtJuwmng4qVeDAJQ5T9S1Ybm9zk8vEEXZ3GwREQ7"
