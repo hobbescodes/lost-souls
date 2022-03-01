@@ -129,7 +129,7 @@ function NftCard({ nft }) {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col justify-between space-y-1 px-3 text-sm">
+                  <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">
                     <div className="flex justify-between space-x-2">
                       <p className="font-bold">Score:</p>
                       <p className="font-normal text-green-400">{`${nft.attributes.rarity.toFixed(
@@ -142,9 +142,15 @@ function NftCard({ nft }) {
                         return (
                           <div
                             key={index}
-                            className="flex justify-between space-x-2"
+                            className="flex justify-between space-x-8 space-y-2 py-2"
                           >
-                            <p className="font-bold">{e.trait_type}:</p>
+                            <div className="flex flex-col">
+                              <p className="font-bold">{e.trait_type}:</p>
+                              <p className="text-xs font-bold text-gray-400">
+                                {e.value}
+                              </p>
+                            </div>
+
                             <p className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
                               2
                             )}`}</p>
