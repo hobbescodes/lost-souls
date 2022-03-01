@@ -24,7 +24,7 @@ function NftCard({ nft }) {
             nft.attributes.class === "Uncommon" && "bg-blue-400"
           } ${nft.attributes.class === "Common" && "bg-purple-400"} blur-lg`}
         ></div>
-        <div className="relative rounded-xl bg-black pb-3">
+        <div className="relative rounded-b-lg bg-black pb-3">
           <div
             onClick={openModal}
             className="flex flex-col items-center space-y-2 rounded-lg"

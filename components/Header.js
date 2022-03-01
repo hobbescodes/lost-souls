@@ -18,7 +18,7 @@ function Header() {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="relative flex md:right-8 xl:right-0">
         <Navigation />
       </div>
     </header>
