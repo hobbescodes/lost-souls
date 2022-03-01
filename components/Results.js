@@ -6,9 +6,11 @@ import { nftsState } from "../atoms/NftsAtom";
 import { limitState } from "../atoms/LimitAtom";
 import { useEffect } from "react";
 import Image from "next/image";
+import { totalQuarksState } from "../atoms/QuarksAtom";
 
 function Results() {
   const [limit, setLimit] = useRecoilState(limitState);
+  const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [nft, setNft] = useRecoilState(nftsState);
   const { Moralis } = useMoralis();
 
@@ -29,12 +31,23 @@ function Results() {
 
   useEffect(() => {
     allNFTs();
+    setTotalQuarks(0);
   }, []);
 
   return (
     <div className="relative mx-auto mb-12 flex flex-col items-center space-y-4">
       {nft != undefined ? (
         <>
+          {totalQuarks != 0 ? (
+            <div className="mt-8 flex flex-col items-center justify-center">
+              <p>Total Quarks: </p>
+              <p>
+                {totalQuarks.toString().length < 7
+                  ? totalQuarks / 1000 + " K"
+                  : (totalQuarks / 1000000).toFixed(3) + " M"}
+              </p>
+            </div>
+          ) : null}
           {nft.length > 0 ? (
             <>
               <div

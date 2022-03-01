@@ -63,7 +63,7 @@ function NftCard({ nft }) {
               <p>{`Rank #${nft.attributes.rank}`}</p>
             )}
 
-            <p>{`Quarks: ${nft.attributes.quarks.toString().slice(0, -3)}K`}</p>
+            <p>{`Quarks: ${nft.attributes.quarks / 1000}K`}</p>
           </div>
         </div>
       </div>

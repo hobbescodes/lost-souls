@@ -6,6 +6,7 @@ import { useMoralis } from "react-moralis";
 import { useRecoilState } from "recoil";
 import { limitState } from "../atoms/LimitAtom";
 import { nftsState } from "../atoms/NftsAtom";
+import { totalQuarksState } from "../atoms/QuarksAtom";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
@@ -13,6 +14,7 @@ function Navigation() {
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
+  const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [sniperPrice, setSniperPrice] = useState(null);
 
   const backgrounds = [
@@ -248,7 +250,14 @@ function Navigation() {
           }
         }
       });
+
+      let totalQuarks = 0;
+      filteredNFTs.forEach((nft) => {
+        totalQuarks += nft.attributes.quarks;
+      });
+
       setNft(filteredNFTs);
+      setTotalQuarks(totalQuarks);
       setTokenIds([]);
     }
   };
@@ -283,6 +292,7 @@ function Navigation() {
 
   const retrieveNFT = () => {
     setNft(undefined);
+    setTotalQuarks(0);
     if (
       tokenOrAddress % 1 == 0 &&
       tokenOrAddress > 0 &&
@@ -297,6 +307,7 @@ function Navigation() {
   const retrieveFilteredNFTs = (index, value) => {
     setNft(undefined);
     setLimit(18);
+    setTotalQuarks(0);
     filteredNFTs(index, value);
   };
 
@@ -306,6 +317,7 @@ function Navigation() {
     let allNFTs = nfts;
     setNft(allNFTs);
     setLimit(18);
+    setTotalQuarks(0);
   };
 
   const reset = () => {
