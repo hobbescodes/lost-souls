@@ -65,7 +65,8 @@ function Results() {
               </div>
               <div
                 className={`relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer ${
-                  nft.length <= 1 && "hidden"
+                  (nft.length <= 1 && "hidden") ||
+                  (nft.length <= limit && "hidden")
                 }`}
               >
                 <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
