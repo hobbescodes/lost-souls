@@ -4,14 +4,14 @@ import { RecoilRoot } from "recoil";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <RecoilRoot>
-      <MoralisProvider
-        appId={process.env.NEXT_PUBLIC_APP_ID || ""}
-        serverUrl={process.env.NEXT_PUBLIC_SERVER_URL || ""}
-      >
+    <MoralisProvider
+      appId={process.env.NEXT_PUBLIC_APP_ID || ""}
+      serverUrl={process.env.NEXT_PUBLIC_SERVER_URL || ""}
+    >
+      <RecoilRoot>
         <Component {...pageProps} />
-      </MoralisProvider>
-    </RecoilRoot>
+      </RecoilRoot>
+    </MoralisProvider>
   );
 }
 export default MyApp;
