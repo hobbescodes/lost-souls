@@ -109,7 +109,7 @@ function Navigation() {
   //OnClick for Address: 1) resets variables 2) Checks if input is a valid address or ENS domain, if not resets other variables
   const retrieveAddressNFTs = async () => {
     setNft(undefined);
-    setLimit(18);
+    setLimit(10);
 
     if (isAddress(tokenOrAddress) == true) {
       addressNFTs(tokenOrAddress);
@@ -149,7 +149,7 @@ function Navigation() {
   //OnClick for Filter menu: 1) resets variables, calls the filter function for given trait
   const retrieveFilteredNFTs = (index, value) => {
     setNft(undefined);
-    setLimit(18);
+    setLimit(10);
     setTotalQuarks(0);
     filteredNFTs(index, value);
   };
@@ -160,7 +160,7 @@ function Navigation() {
 
     let allNFTs = nfts;
     setNft(allNFTs);
-    setLimit(18);
+    setLimit(10);
     setTotalQuarks(0);
   };
 
