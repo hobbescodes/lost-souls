@@ -327,7 +327,7 @@ function Navigation() {
 
   return (
     <div className="flex flex-col items-center justify-center space-y-4 bg-black md:flex-row md:space-y-0 md:space-x-4">
-      <div className="relative rounded-md">
+      <div className="relative mb-4 rounded-md md:mb-0">
         <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
           <SearchIcon className="h-5 w-5 text-gray-400" />
         </div>
