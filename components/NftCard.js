@@ -3,33 +3,36 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { LinkIcon as OpenSea, XIcon } from "@heroicons/react/outline";
 import { useMoralis } from "react-moralis";
+import { contractAddress } from "../exports/contractAddress";
 
 function NftCard({ nft }) {
   let [isOpen, setIsOpen] = useState(false);
   const [owner, setOwner] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
   const { Moralis } = useMoralis();
 
-  //Closes Modal for each NFT, resets owner value
+  //Closes Modal for each NFT, resets variables
   function closeModal() {
     setIsOpen(false);
     setOwner("");
+    setIsCopied(false);
   }
 
   //Truncates an address to the form of 0xEE..EEEE
-  function truncateHash(hash, string, length = 38) {
+  function truncateHash(hash, length = 38) {
     return hash.replace(hash.substring(4, length), "..");
   }
 
   //Finds the current owner of a given NFT, provided a Token ID. Checks to see if there is an ENS domain attached to owner's wallet address
-  const getNFTOwner = async (id) => {
+  const getNFTOwner = async (token_id) => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
       appId: process.env.NEXT_PUBLIC_APP_ID,
     });
 
     const options = {
-      address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
-      token_id: id,
+      address: contractAddress,
+      token_id,
     };
     const tokenIdOwner = await Moralis.Web3API.token.getTokenIdOwners(options);
 
@@ -38,7 +41,7 @@ function NftCard({ nft }) {
       const resolve = await Moralis.Web3API.resolve.resolveAddress(options2);
       setOwner(resolve.name);
     } catch {
-      setOwner(truncateHash(tokenIdOwner.result[0].owner_of));
+      setOwner(tokenIdOwner.result[0].owner_of);
     }
   };
 
@@ -46,6 +49,12 @@ function NftCard({ nft }) {
   function openModal() {
     setIsOpen(true);
     getNFTOwner(nft.attributes.tokenId);
+  }
+
+  //Copies value to clipboard, unsure if this works on all browsers/OS
+  function copyToClipboard(value) {
+    navigator.clipboard.writeText(value);
+    setIsCopied(true);
   }
 
   return (
@@ -163,9 +172,18 @@ function NftCard({ nft }) {
                       />
                     </div>
                     {owner != "" ? (
-                      <div className="flex flex-col items-center justify-center space-y-1">
+                      <div
+                        onClick={() => copyToClipboard(owner)}
+                        className="group flex cursor-pointer flex-col items-center justify-center space-y-1"
+                      >
                         <p className="text-green-400">Owner:</p>
-                        <p>{owner}</p>
+                        {owner.endsWith(".eth") ? (
+                          <p className="group-hover:underline">{owner}</p>
+                        ) : (
+                          <p className="group-hover:underline">
+                            {truncateHash(owner)}
+                          </p>
+                        )}
                       </div>
                     ) : (
                       <div className="flex flex-col items-center justify-center space-y-1">
@@ -173,6 +191,7 @@ function NftCard({ nft }) {
                         <p>Fetching...</p>
                       </div>
                     )}
+                    {isCopied ? <p className="text-xs">Copied!</p> : null}
                   </div>
                   <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">
                     <div className="flex justify-between space-x-2">

@@ -14,6 +14,7 @@ import {
   faces,
   shirts,
 } from "../exports/traitArrays";
+import { contractAddress } from "../exports/contractAddress";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
@@ -23,8 +24,6 @@ function Navigation() {
   const [tokenIds, setTokenIds] = useState([]);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [sniperPrice, setSniperPrice] = useState(null);
-
-  const contractAddress = "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC";
 
   const allHeadware = headware.sort();
 
@@ -58,7 +57,7 @@ function Navigation() {
       appId: process.env.NEXT_PUBLIC_APP_ID,
     });
     const options = {
-      address: address,
+      address,
       token_address: contractAddress,
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
@@ -166,7 +165,7 @@ function Navigation() {
     setTotalQuarks(0);
   };
 
-  //OnClick for Reset: first setNft(undefined) to clear
+  //OnClick for Reset: first setNft(undefined) to clear nfts
   const reset = () => {
     setNft(undefined);
     resetNFTs();
