@@ -2,17 +2,51 @@ import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { LinkIcon as OpenSea, XIcon } from "@heroicons/react/outline";
+import { useMoralis } from "react-moralis";
 
 function NftCard({ nft }) {
   let [isOpen, setIsOpen] = useState(false);
+  const [owner, setOwner] = useState("");
+  const { Moralis } = useMoralis();
 
   function closeModal() {
     setIsOpen(false);
+    setOwner("");
   }
+
+  function truncateHash(hash, string, length = 38) {
+    return hash.replace(hash.substring(4, length), "..");
+  }
+
+  const getNFTOwner = async (id) => {
+    await Moralis.start({
+      serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+      appId: process.env.NEXT_PUBLIC_APP_ID,
+    });
+
+    const options = {
+      address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+      token_id: id,
+    };
+    const tokenIdOwner = await Moralis.Web3API.token.getTokenIdOwners(options);
+
+    const options2 = { address: tokenIdOwner.result[0].owner_of };
+    try {
+      const resolve = await Moralis.Web3API.resolve.resolveAddress(options2);
+      setOwner(resolve.name);
+    } catch {
+      setOwner(truncateHash(tokenIdOwner.result[0].owner_of));
+    }
+
+    //console.log(tokenIdOwner);
+  };
 
   function openModal() {
     setIsOpen(true);
+    getNFTOwner(nft.attributes.tokenId.toString());
   }
+
+  //console.log(owner);
 
   return (
     <div>
@@ -127,6 +161,11 @@ function NftCard({ nft }) {
                         layout="fill"
                         objectFit="contain"
                       />
+                    </div>
+                    <div>
+                      <p>
+                        Owner: <br /> {owner}
+                      </p>
                     </div>
                   </div>
                   <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">

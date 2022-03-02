@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import { useRecoilState } from "recoil";
 import { nftsState } from "../atoms/NftsAtom";
 import { limitState } from "../atoms/LimitAtom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { totalQuarksState } from "../atoms/QuarksAtom";
 
@@ -12,11 +12,49 @@ function Results() {
   const [limit, setLimit] = useRecoilState(limitState);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [nft, setNft] = useRecoilState(nftsState);
+  // const [uniqueOwners, setUniqueOwners] = useState([]);
   const { Moralis } = useMoralis();
 
   function updateLimit() {
     setLimit(limit + 18);
   }
+
+  // TODO: GET TOTAL OWNERS
+  // const getNFTOwners = async () => {
+  //   await Moralis.start({
+  //     serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+  //     appId: process.env.NEXT_PUBLIC_APP_ID,
+  //   });
+
+  //   let offset = 0;
+  //   let pageSize = 500;
+  //   let allOwners = [];
+  //   const timer = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  //   for (let i = 0; i < 20; i++) {
+  //     const options = {
+  //       address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+  //       offset: offset,
+  //       limit: 500,
+  //     };
+  //     const nftOwners = await Moralis.Web3API.token.getNFTOwners(options);
+  //     await timer(1000);
+  //     for (let i = 0; i < nftOwners.result.length; i++) {
+  //       allOwners.push(nftOwners.result[i].owner_of);
+  //     }
+  //     // console.log(allOwners);
+  //     offset += pageSize;
+  //   }
+
+  //   let uniqueOwners = [];
+  //   allOwners.forEach((owner) => {
+  //     if (!uniqueOwners.includes(owner)) {
+  //       uniqueOwners.push(owner);
+  //     }
+  //   });
+
+  //   setUniqueOwners(uniqueOwners);
+  // };
 
   const allNFTs = async () => {
     await Moralis.start({
@@ -31,11 +69,20 @@ function Results() {
 
   useEffect(() => {
     allNFTs();
+    // getNFTOwners();
     setTotalQuarks(0);
   }, []);
 
   return (
     <div className="relative mx-auto mb-12 flex flex-col items-center space-y-4">
+      {/* {uniqueOwners.length > 0 ? (
+        <div className="relative">Owners: {uniqueOwners.length}</div>
+      ) : (
+        <div className="relative">
+          <p>Owners: Loading...</p>
+        </div>
+      )} */}
+
       {nft != undefined ? (
         <>
           {totalQuarks != 0 ? (
