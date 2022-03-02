@@ -133,7 +133,14 @@ function Results() {
               </p>
 
               <p className="p-4 text-center">
-                2: The Wallet Address/ENS domain you have entered doesnt
+                2: You entered a valid ENS domain, but did not Sign in with
+                Metamask. Unfortunately, that is required to search by ENS
+                domains. If you do not wish to Sign in, feel free to search by
+                Address!
+              </p>
+
+              <p className="p-4 text-center">
+                3: The Wallet Address/ENS domain you have entered doesnt
                 currently own a Lost Soul. If this is the case, and it is you
                 address/ENS domain, head to{" "}
                 <span className="text-blue-500">
