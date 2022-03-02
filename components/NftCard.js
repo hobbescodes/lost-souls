@@ -167,7 +167,12 @@ function NftCard({ nft }) {
                         <p className="text-green-400">Owner:</p>
                         <p>{owner}</p>
                       </div>
-                    ) : null}
+                    ) : (
+                      <div className="flex flex-col items-center justify-center space-y-1">
+                        <p className="text-green-400">Owner:</p>
+                        <p>Fetching...</p>
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">
                     <div className="flex justify-between space-x-2">
