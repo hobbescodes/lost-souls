@@ -133,10 +133,10 @@ function Results() {
               </p>
 
               <p className="p-4 text-center">
-                2: You entered a valid ENS domain, but did not Sign in with
+                2: You entered a valid ENS domain, but did not Connect with
                 Metamask. Unfortunately, that is required to search by ENS
-                domains. If you do not wish to Sign in, feel free to search by
-                Address!
+                domains. If you do not wish to Connect your wallet, feel free to
+                search by Address!
               </p>
 
               <p className="p-4 text-center">
