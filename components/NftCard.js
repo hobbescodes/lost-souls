@@ -139,7 +139,7 @@ function NftCard({ nft }) {
             >
               <div className="relative my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl border-4 border-black bg-black p-6 text-left align-middle text-white shadow-xl transition-all">
                 <div className="flex flex-col items-center justify-between space-y-3 py-4 sm:flex-row sm:space-y-0">
-                  <div className="flex flex-col items-start justify-center space-y-1">
+                  <div className="flex flex-col items-center justify-center space-y-2">
                     <Dialog.Title
                       as="h3"
                       className="text-lg font-medium leading-6 text-white"
@@ -162,11 +162,12 @@ function NftCard({ nft }) {
                         objectFit="contain"
                       />
                     </div>
-                    <div>
-                      <p>
-                        Owner: <br /> {owner}
-                      </p>
-                    </div>
+                    {owner != "" ? (
+                      <div className="flex flex-col items-center justify-center space-y-1">
+                        <p className="text-green-400">Owner:</p>
+                        <p>{owner}</p>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">
                     <div className="flex justify-between space-x-2">
