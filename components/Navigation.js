@@ -7,6 +7,13 @@ import { useRecoilState } from "recoil";
 import { limitState } from "../atoms/LimitAtom";
 import { nftsState } from "../atoms/NftsAtom";
 import { totalQuarksState } from "../atoms/QuarksAtom";
+import {
+  backgrounds,
+  bodies,
+  headware,
+  faces,
+  shirts,
+} from "../exports/traitArrays";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
@@ -17,197 +24,15 @@ function Navigation() {
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [sniperPrice, setSniperPrice] = useState(null);
 
-  const backgrounds = [
-    "Blue",
-    "Green",
-    "Greenburst",
-    "Lilac",
-    "Orange",
-    "Pink",
-    "Purple",
-    "Yellow",
-  ];
-  const bodies = ["Blue", "Cow", "Diamond", "Gold", "Pink", "White"];
-  const headware = [
-    "Suprememebuckethat",
-    "Denimcap",
-    "Devilhorns",
-    "Antlers",
-    "Backhat",
-    "Peterpan",
-    "Spartan",
-    "Hawaiianflower",
-    "Propellerhat",
-    "Ninjaband",
-    "Halo",
-    "Detectivehat",
-    "Sombrero",
-    "Blackcurls",
-    "Blackcap",
-    "Browncurls",
-    "Crown",
-    "Redcurls",
-    "Wolf",
-    "Daisy",
-    "Witchhat",
-    "Flowercrown",
-    "Rastabeanie",
-    "Cowboyhat",
-    "Redbeanie",
-    "Kingcrown",
-    "Combover",
-    "Tanberet",
-    "Brownbob",
-    "Pinkbob",
-    "Tophat",
-    "Graybeanie",
-    "Clown",
-    "Beachhat",
-    "Flowercap",
-    "Chefhat",
-    "Pinkbow",
-    "Velvethat",
-    "Sweatband",
-    "Bunnyears",
-    "Greenberet",
-    "Partyhat",
-    "Beanie",
-    "Catears",
-    "Pineapplebuckethat",
-    "Emohair",
-  ];
+  const contractAddress = "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC";
+
   const allHeadware = headware.sort();
-  const faces = [
-    "Nerd",
-    "Cig",
-    "Wizard",
-    "Vamp",
-    "Flame",
-    "Yellowshades",
-    "Facetats",
-    "Hypno",
-    "Redeyes",
-    "Cat",
-    "Pinkclout",
-    "Whiteclout",
-    "Ninja",
-    "Dollarsign",
-    "Threed",
-    "Toy",
-    "Redshades",
-    "Zipper",
-    "Kissy",
-    "Bite",
-    "Blush",
-    "Wink",
-    "Wut",
-    "Mustache",
-    "Halloween",
-    "Heartglasses",
-    "Rays",
-    "Monacle",
-    "Frown",
-    "Smile",
-    "Loopy",
-    "Angry",
-    "Star",
-    "Aviators",
-    "Surprised",
-    "Cateyes",
-    "Sad",
-    "Confused",
-    "Wishful",
-    "Egirl",
-    "Kawaii",
-    "Basic",
-    "Beard",
-    "Ugh",
-    "Tongue",
-    "Glossy",
-  ];
+
   const allFaces = faces.sort();
-  const shirts = [
-    "Darkangel",
-    "Bluelightsaber",
-    "Hula",
-    "Scientist",
-    "Cheetahdress",
-    "Kingrobe",
-    "Baseballjersey",
-    "Redlightsaber",
-    "Toker",
-    "Christmas",
-    "Waterbender",
-    "Angel",
-    "Purpletux",
-    "Firebender",
-    "Icedress",
-    "Sailor",
-    "Tennis",
-    "Ninja",
-    "Pinkhoodie",
-    "Grayhoodie",
-    "Belt",
-    "Fishnet",
-    "Trident",
-    "Countryvest",
-    "Darksuit",
-    "Wedding",
-    "Wheresthesoul",
-    "Cape",
-    "Paintbrushhandpalette",
-    "Pumpkin",
-    "Pinktux",
-    "Tennisracket",
-    "Jersey",
-    "Hockey",
-    "Oranget",
-    "Bib",
-    "Guitar",
-    "Torch",
-    "Gotsoul",
-    "Bowandarrow",
-    "Sceptor",
-    "Tux",
-    "Baloons",
-    "Cane",
-    "Orangestripes",
-    "Lilact",
-    "Wand",
-    "Bee",
-    "Dagger",
-    "Chain",
-    "Bluehoodie",
-    "Phone",
-    "Pinkt",
-    "Candy",
-    "Bluet",
-    "Greent",
-    "Mirraca",
-    "Redt",
-    "Bowties",
-    "Suit",
-    "Blueflannel",
-    "Bottle",
-    "Watch",
-    "Vest",
-    "Spatula",
-    "Book",
-    "Furcoat",
-    "Zebra",
-    "Lsd",
-    "Leatherjacket",
-    "Rippedt",
-    "Basketballjersey",
-    "Kunai",
-    "Yellowt",
-    "Skateboard",
-    "Blackhoodie",
-    "Lollipop",
-    "Redflannel",
-  ];
+
   const allShirts = shirts.sort();
 
+  // Get individual NFT
   const getNFT = async () => {
     const nfts = await Moralis.Cloud.run("LostSouls");
     let selectedNFT = nfts.filter(
@@ -216,6 +41,7 @@ function Navigation() {
     setNft(selectedNFT);
   };
 
+  // Filter NFTs by specified trait value
   const filteredNFTs = async (index, value) => {
     const nfts = await Moralis.Cloud.run("LostSouls");
 
@@ -225,6 +51,7 @@ function Navigation() {
     setNft(filteredNFTs);
   };
 
+  // Get NFTs for a given wallet address
   const addressNFTs = async (address) => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -232,7 +59,7 @@ function Navigation() {
     });
     const options = {
       address: address,
-      token_address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+      token_address: contractAddress,
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
 
@@ -262,6 +89,7 @@ function Navigation() {
     }
   };
 
+  // Easter Egg: Specifies the lowest price a Lost Soul has transfer for in the past 24 hours
   const sniperNFT = async () => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -269,7 +97,7 @@ function Navigation() {
     });
 
     const options = {
-      address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
+      address: contractAddress,
       days: "1",
     };
     const NFTLowestPrice = await Moralis.Web3API.token.getNFTLowestPrice(
@@ -279,6 +107,7 @@ function Navigation() {
     setSniperPrice(NFTLowestPrice.price / Math.pow(10, 18));
   };
 
+  //OnClick for Address: 1) resets variables 2) Checks if input is a valid address or ENS domain, if not resets other variables
   const retrieveAddressNFTs = async () => {
     setNft(undefined);
     setLimit(18);
@@ -303,6 +132,7 @@ function Navigation() {
     }
   };
 
+  //OnClick for Find a Soul: 1) reset variables, 2) Checks if input is a valid integer 1-9999 (valid token ID), if not reset other variables
   const retrieveNFT = () => {
     setNft(undefined);
     setTotalQuarks(0);
@@ -318,6 +148,7 @@ function Navigation() {
     }
   };
 
+  //OnClick for Filter menu: 1) resets variables, calls the filter function for given trait
   const retrieveFilteredNFTs = (index, value) => {
     setNft(undefined);
     setLimit(18);
@@ -325,6 +156,7 @@ function Navigation() {
     filteredNFTs(index, value);
   };
 
+  //Reset function to eliminate any filters
   const resetNFTs = async () => {
     const nfts = await Moralis.Cloud.run("LostSouls");
 
@@ -334,6 +166,7 @@ function Navigation() {
     setTotalQuarks(0);
   };
 
+  //OnClick for Reset: first setNft(undefined) to clear
   const reset = () => {
     setNft(undefined);
     resetNFTs();

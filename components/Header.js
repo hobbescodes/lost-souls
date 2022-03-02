@@ -12,7 +12,7 @@ function Header() {
             width={75}
             height={75}
           />
-          <p className="font-header-font hidden text-3xl md:inline-flex">
+          <p className="font-header text-4xl hidden md:inline-flex">
             Lost Souls Rarity
           </p>
         </div>

@@ -9,15 +9,18 @@ function NftCard({ nft }) {
   const [owner, setOwner] = useState("");
   const { Moralis } = useMoralis();
 
+  //Closes Modal for each NFT, resets owner value
   function closeModal() {
     setIsOpen(false);
     setOwner("");
   }
 
+  //Truncates an address to the form of 0xEE..EEEE
   function truncateHash(hash, string, length = 38) {
     return hash.replace(hash.substring(4, length), "..");
   }
 
+  //Finds the current owner of a given NFT, provided a Token ID. Checks to see if there is an ENS domain attached to owner's wallet address
   const getNFTOwner = async (id) => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -37,16 +40,13 @@ function NftCard({ nft }) {
     } catch {
       setOwner(truncateHash(tokenIdOwner.result[0].owner_of));
     }
-
-    //console.log(tokenIdOwner);
   };
 
+  //Opens Modal for each NFT and triggers function to find owner of clicked NFT
   function openModal() {
     setIsOpen(true);
-    getNFTOwner(nft.attributes.tokenId.toString());
+    getNFTOwner(nft.attributes.tokenId);
   }
-
-  //console.log(owner);
 
   return (
     <div>

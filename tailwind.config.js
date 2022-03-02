@@ -6,13 +6,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "header-font": ['"Indie Flower"', "cursive"],
+        header: ['"Amatic SC"', "cursive"],
       },
       width: {
         "98%": "98vw",
-      },
-      backgroundImage: {
-        spooky: "url(/images/spooky.jpeg)",
       },
     },
   },
