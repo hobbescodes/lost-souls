@@ -117,7 +117,6 @@ function Navigation() {
       try {
         const web3Provider = await Moralis.enableWeb3();
         const address = await web3Provider.resolveName(tokenOrAddress);
-        console.log(address);
         if (address != null) {
           addressNFTs(address);
         } else {
