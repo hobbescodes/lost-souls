@@ -225,13 +225,13 @@ function Navigation() {
     setNft(filteredNFTs);
   };
 
-  const addressNFTs = async () => {
+  const addressNFTs = async (address) => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
       appId: process.env.NEXT_PUBLIC_APP_ID,
     });
     const options = {
-      address: tokenOrAddress,
+      address: address,
       token_address: "0x0FB69D1dC9954a7f60e83023916F2551E24F52fC",
     };
     const NFTs = await Moralis.Web3API.account.getNFTsForContract(options);
@@ -279,14 +279,27 @@ function Navigation() {
     setSniperPrice(NFTLowestPrice.price / Math.pow(10, 18));
   };
 
-  const retrieveAddressNFTs = () => {
+  const retrieveAddressNFTs = async () => {
     setNft(undefined);
     setLimit(18);
 
     if (isAddress(tokenOrAddress) == true) {
-      addressNFTs();
+      addressNFTs(tokenOrAddress);
     } else {
-      setNft([]);
+      try {
+        const web3Provider = await Moralis.enableWeb3();
+        const address = await web3Provider.resolveName(tokenOrAddress);
+        console.log(address);
+        if (address != null) {
+          addressNFTs(address);
+        } else {
+          setTotalQuarks(0);
+          setNft([]);
+        }
+      } catch {
+        setTotalQuarks(0);
+        setNft([]);
+      }
     }
   };
 
@@ -300,6 +313,7 @@ function Navigation() {
     ) {
       getNFT();
     } else {
+      setTotalQuarks(0);
       setNft([]);
     }
   };

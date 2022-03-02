@@ -128,14 +128,14 @@ function Results() {
                 different things:
               </p>
               <p className="p-4 text-center">
-                1: You entered an Invalid Token ID or an Invalid Wallet Address.
-                In that case, please try again!
+                1: You entered an Invalid Token ID, an Invalid Wallet Address,
+                or an Invalid ENS domain. In that case, please try again!
               </p>
 
               <p className="p-4 text-center">
-                2: The Wallet Address you have entered doesnt currently own a
-                Lost Soul. If this is the case, and it is you Wallet Address,
-                head to{" "}
+                2: The Wallet Address/ENS domain you have entered doesnt
+                currently own a Lost Soul. If this is the case, and it is you
+                address/ENS domain, head to{" "}
                 <span className="text-blue-500">
                   <a
                     rel="noreferrer"
@@ -145,7 +145,8 @@ function Results() {
                   >
                     OpenSea
                   </a>
-                </span>
+                </span>{" "}
+                to pick one up and join the SoulFam!
               </p>
 
               <div>
