@@ -195,7 +195,7 @@ function Navigation() {
             <SearchIcon className="h-5 w-5 text-gray-400" />
           </div>
           <input
-            className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
+            className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black selection:bg-blue-200 focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
             type="text"
             placeholder="Token ID or Address"
             onChange={(e) => setTokenOrAddress(e.target.value)}
