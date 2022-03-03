@@ -59,14 +59,13 @@ function NftCard({ nft }) {
 
   return (
     <div>
-      <div className="relative m-4 transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-        <div
-          className={`absolute inset-0 rounded-md ${
-            nft.attributes.class === "Super Rare" && "bg-orange-400"
-          } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
-            nft.attributes.class === "Uncommon" && "bg-blue-400"
-          } ${nft.attributes.class === "Common" && "bg-purple-400"} blur-lg`}
-        ></div>
+      <div
+        className={`relative m-4 shadow-sm transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer ${
+          nft.attributes.class === "Super Rare" && "shadow-orange-400"
+        } ${nft.attributes.class === "Rare" && "shadow-green-400"} ${
+          nft.attributes.class === "Uncommon" && "shadow-blue-400"
+        } ${nft.attributes.class === "Common" && "shadow-purple-400"}`}
+      >
         <div className="relative rounded-b-lg bg-black pb-3">
           <div
             onClick={openModal}
