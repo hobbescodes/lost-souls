@@ -66,6 +66,15 @@ function NftCard({ nft }) {
           nft.attributes.class === "Uncommon" && "shadow-blue-400"
         } ${nft.attributes.class === "Common" && "shadow-purple-400"}`}
       >
+        <div
+          className={`text-md absolute top-3 -right-1 h-7 w-[2px] rounded-r-lg ${
+            nft.attributes.class === "Super Rare" && "bg-orange-400"
+          } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
+            nft.attributes.class === "Uncommon" && "bg-blue-400"
+          } ${
+            nft.attributes.class === "Common" && "bg-purple-400"
+          } p-1 text-black shadow shadow-black`}
+        ></div>
         <div className="relative rounded-b-lg bg-black pb-3">
           <div
             onClick={openModal}
@@ -83,15 +92,6 @@ function NftCard({ nft }) {
               >
                 {nft.attributes.class}
               </div>
-              <div
-                className={`text-md absolute top-3 -right-1 h-7 w-[2px] rounded-r-lg ${
-                  nft.attributes.class === "Super Rare" && "bg-orange-400"
-                } ${nft.attributes.class === "Rare" && "bg-green-400"} ${
-                  nft.attributes.class === "Uncommon" && "bg-blue-400"
-                } ${
-                  nft.attributes.class === "Common" && "bg-purple-400"
-                } p-1 text-black shadow shadow-black`}
-              ></div>
               <Image
                 src={nft.attributes.image}
                 layout="fill"
