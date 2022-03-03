@@ -2,7 +2,7 @@ export default function Loader({ text = "Loading..." }) {
   return (
     <div className="flex flex-col items-center justify-center pt-16 text-xl font-light">
       <svg
-        className="-ml-1 mr-3 h-8 w-8 animate-spin text-white"
+        className="-ml-1 mr-3 h-8 w-8 animate-spin text-black dark:text-white"
         xmlns="http://www.w3.org/2000/svg"
         fill="white"
         viewBox="0 0 24 24"

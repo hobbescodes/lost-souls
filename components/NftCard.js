@@ -75,7 +75,7 @@ function NftCard({ nft }) {
             nft.attributes.class === "Common" && "bg-purple-400"
           } p-1 text-black shadow shadow-black`}
         ></div>
-        <div className="relative rounded-b-lg bg-black pb-3">
+        <div className="relative bg-zinc-200 pb-3 text-black dark:bg-zinc-900 dark:text-white">
           <div
             onClick={openModal}
             className="flex flex-col items-center space-y-2 rounded-lg"
@@ -145,7 +145,7 @@ function NftCard({ nft }) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="relative my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl border-4 border-black bg-black p-6 text-left align-middle text-white shadow-xl transition-all">
+              <div className="relative my-8 inline-block w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-50 p-6 text-left align-middle text-black shadow-xl transition-all dark:bg-black dark:text-white">
                 <div className="flex flex-col items-center justify-between space-y-3 py-4 sm:flex-row sm:space-y-0">
                   <div className="flex flex-col items-center justify-center space-y-2">
                     <Dialog.Title

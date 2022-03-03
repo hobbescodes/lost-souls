@@ -1,5 +1,10 @@
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, SearchIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  SearchIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/react/outline";
 import { isAddress } from "ethers/lib/utils";
 import { Fragment, useState } from "react";
 import { useMoralis } from "react-moralis";
@@ -15,10 +20,12 @@ import {
   shirts,
 } from "../exports/traitArrays";
 import { contractAddress } from "../exports/contractAddress";
+import { useTheme } from "next-themes";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
   const { Moralis } = useMoralis();
+  const { theme, setTheme } = useTheme();
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
@@ -171,51 +178,63 @@ function Navigation() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 bg-black md:flex-row md:space-y-0 md:space-x-4">
-      <div className="relative mb-4 rounded-md md:mb-0">
-        <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
-          <SearchIcon className="h-5 w-5 text-gray-400" />
+    <div className="flex flex-col items-center justify-center space-y-4 bg-zinc-100 text-black dark:bg-black dark:text-white md:flex-row md:space-y-0 md:space-x-4">
+      <div className="flex items-center justify-center">
+        <div className="relative mb-4 rounded-md transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer md:mb-0">
+          <button
+            aria-label="Toggle Dark Mode"
+            type="button"
+            className="order-2 h-12 w-12 p-3 md:order-3"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
         </div>
-        <input
-          className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
-          type="text"
-          placeholder="Token ID or Address"
-          onChange={(e) => setTokenOrAddress(e.target.value)}
-        />
+        <div className="relative mb-4 rounded-md md:mb-0">
+          <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
+            <SearchIcon className="h-5 w-5 text-gray-400" />
+          </div>
+          <input
+            className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
+            type="text"
+            placeholder="Token ID or Address"
+            onChange={(e) => setTokenOrAddress(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="relative flex items-center justify-center space-x-2">
-        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
+          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
-            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => retrieveNFT()}
           >
             Find a Soul
           </button>
         </div>
-        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
+          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
-            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => retrieveAddressNFTs()}
           >
             Address
           </button>
         </div>
-        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
+          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
-            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => reset()}
           >
             Reset
           </button>
         </div>
-        <div className="relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer">
-          <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
+        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
+          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
-            className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => sniperNFT()}
           >
             {sniperPrice != null ? sniperPrice + " ETH" : "Sniper"}
@@ -224,13 +243,13 @@ function Navigation() {
       </div>
       <div className="relative right-8 z-20 w-[20px] items-center justify-center md:right-0">
         <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
-            <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-black px-4 py-2 text-sm font-medium text-white">
+          <div className="rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+            {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
+            <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-black dark:bg-zinc-900 dark:text-white">
               <div className="flex">
                 Filter
                 <ChevronDownIcon
-                  className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100"
+                  className="ml-2 -mr-1 h-5 w-5 text-cyan-700 hover:text-cyan-500 dark:text-violet-700 dark:hover:text-violet-500"
                   aria-hidden="true"
                 />
               </div>
@@ -245,14 +264,14 @@ function Navigation() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg focus:outline-none sm:right-0">
+            <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none sm:right-0">
               <div className="max-h-[240px] overflow-y-scroll px-1 py-1">
                 {backgrounds.map((background, index) => (
                   <Menu.Item key={index}>
                     <button
                       onClick={() => retrieveFilteredNFTs(0, background)}
                       className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
                     >
                       Background: {background}
                     </button>
@@ -264,7 +283,7 @@ function Navigation() {
                     <button
                       onClick={() => retrieveFilteredNFTs(1, body)}
                       className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
                     >
                       Body: {body}
                     </button>
@@ -276,7 +295,7 @@ function Navigation() {
                     <button
                       onClick={() => retrieveFilteredNFTs(2, headware)}
                       className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
                     >
                       Headware: {headware}
                     </button>
@@ -288,7 +307,7 @@ function Navigation() {
                     <button
                       onClick={() => retrieveFilteredNFTs(3, face)}
                       className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
                     >
                       Face: {face}
                     </button>
@@ -300,7 +319,7 @@ function Navigation() {
                     <button
                       onClick={() => retrieveFilteredNFTs(4, shirt)}
                       className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-violet-500 hover:text-white"
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
                     >
                       Shirt: {shirt}
                     </button>

@@ -64,14 +64,13 @@ function Results() {
                 ))}
               </div>
               <div
-                className={`relative transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer ${
+                className={`relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4] ${
                   (nft.length <= 1 && "hidden") ||
                   (nft.length <= limit && "hidden")
                 }`}
               >
-                <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div>
                 <button
-                  className="relative items-center justify-center rounded-lg bg-black px-3 py-2 text-sm"
+                  className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
                   onClick={() => updateLimit()}
                 >
                   Load More
