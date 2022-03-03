@@ -150,7 +150,7 @@ function NftCard({ nft }) {
                   <div className="flex flex-col items-center justify-center space-y-2">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-white"
+                      className="text-lg font-medium leading-6 text-black dark:text-white"
                     >
                       {`Lost Soul #${nft.attributes.tokenId}`}
                     </Dialog.Title>
