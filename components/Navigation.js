@@ -205,7 +205,6 @@ function Navigation() {
 
       <div className="relative flex items-center justify-center space-x-2">
         <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
             className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => retrieveNFT()}
@@ -214,7 +213,6 @@ function Navigation() {
           </button>
         </div>
         <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
             className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => retrieveAddressNFTs()}
@@ -223,7 +221,6 @@ function Navigation() {
           </button>
         </div>
         <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
             className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => reset()}
@@ -232,7 +229,6 @@ function Navigation() {
           </button>
         </div>
         <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
           <button
             className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
             onClick={() => sniperNFT()}
@@ -244,7 +240,6 @@ function Navigation() {
       <div className="relative right-8 z-20 w-[20px] items-center justify-center md:right-0">
         <Menu as="div" className="relative inline-block text-left">
           <div className="rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-            {/* <div className="absolute inset-0 rounded-md bg-gradient-to-tr from-[#14aed0] to-[#6a3fe4] blur-lg"></div> */}
             <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-black dark:bg-zinc-900 dark:text-white">
               <div className="flex">
                 Filter
