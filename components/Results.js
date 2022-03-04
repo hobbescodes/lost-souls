@@ -111,7 +111,7 @@ function Results() {
                             height={15}
                           />
                           <p>
-                            {collectionStats.stats.average_price.toFixed(2)}
+                            {collectionStats.stats.average_price.toFixed(3)}
                           </p>
                         </div>
                       </div>
