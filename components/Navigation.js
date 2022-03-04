@@ -1,10 +1,5 @@
 import { Menu, Transition } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  SearchIcon,
-  MoonIcon,
-  SunIcon,
-} from "@heroicons/react/outline";
+import { ChevronDownIcon, SearchIcon } from "@heroicons/react/outline";
 import { isAddress } from "ethers/lib/utils";
 import { Fragment, useState } from "react";
 import { useMoralis } from "react-moralis";
@@ -20,12 +15,11 @@ import {
   shirts,
 } from "../exports/traitArrays";
 import { contractAddress } from "../exports/contractAddress";
-import { useTheme } from "next-themes";
+import ThemeChanger from "./ThemeChanger";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
   const { Moralis } = useMoralis();
-  const { theme, setTheme } = useTheme();
   const [nft, setNft] = useRecoilState(nftsState);
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
@@ -181,14 +175,7 @@ function Navigation() {
     <div className="flex flex-col items-center justify-center space-y-4 bg-zinc-100 text-black dark:bg-black dark:text-white md:flex-row md:space-y-0 md:space-x-4">
       <div className="flex items-center justify-center">
         <div className="relative mb-4 rounded-md transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer md:mb-0">
-          <button
-            aria-label="Toggle Dark Mode"
-            type="button"
-            className="order-2 h-12 w-12 p-3 md:order-3"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-          </button>
+          <ThemeChanger />
         </div>
         <div className="relative mb-4 rounded-md md:mb-0">
           <div className="pointer-events-none absolute inset-y-0 flex items-center pl-3">
@@ -259,7 +246,7 @@ function Navigation() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none sm:right-0">
+            <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none md:right-0">
               <div className="max-h-[240px] overflow-y-scroll px-1 py-1">
                 {backgrounds.map((background, index) => (
                   <Menu.Item key={index}>
