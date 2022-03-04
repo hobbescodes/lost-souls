@@ -45,7 +45,7 @@ function Results() {
       .catch((err) => console.error(err));
   };
 
-  //Fetch all NFTs and (re)initializes quarks
+  //Fetch all NFTs, (re)initializes quarks, and collects stats on mount
   useEffect(() => {
     allNFTs();
     setTotalQuarks(0);
@@ -73,7 +73,7 @@ function Results() {
             <div>
               {nft.length > 1 ? (
                 <div className="flex flex-col items-center justify-center space-y-1">
-                  <div className="flex flex-col space-y-1 md:flex-row md:space-y-0 md:space-x-2">
+                  <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-2">
                     <div className="flex items-center justify-center space-x-2">
                       <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
@@ -117,7 +117,7 @@ function Results() {
                       </div>
                     </div>
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
                           24h Sales:{" "}
                         </p>
@@ -125,7 +125,7 @@ function Results() {
                           <p>{collectionStats.stats.one_day_sales}</p>
                         </div>
                       </div>
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
                           Total Sales:{" "}
                         </p>
@@ -133,7 +133,7 @@ function Results() {
                           <p>{collectionStats.stats.total_sales}</p>
                         </div>
                       </div>
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
                           Volume:{" "}
                         </p>
