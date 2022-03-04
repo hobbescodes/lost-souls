@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import { useRecoilState } from "recoil";
 import { nftsState } from "../atoms/NftsAtom";
 import { limitState } from "../atoms/LimitAtom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { totalQuarksState } from "../atoms/QuarksAtom";
 
@@ -12,6 +12,7 @@ function Results() {
   const [limit, setLimit] = useRecoilState(limitState);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [nft, setNft] = useRecoilState(nftsState);
+  const [collectionStats, setCollectionStats] = useState(null);
   const { Moralis } = useMoralis();
 
   //Updates the limit of NFTs displayed
@@ -31,10 +32,24 @@ function Results() {
     setNft(allNFTs);
   };
 
+  //Uses OpenSea API to collect stats about the Lost Souls Sanctuary collection
+  const collectStats = () => {
+    const options = { method: "GET", headers: { Accept: "application/json" } };
+
+    fetch(
+      "https://api.opensea.io/api/v1/collection/lostsoulssanctuary/stats",
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => setCollectionStats(response))
+      .catch((err) => console.error(err));
+  };
+
   //Fetch all NFTs and (re)initializes quarks
   useEffect(() => {
     allNFTs();
     setTotalQuarks(0);
+    collectStats();
   }, []);
 
   return (
@@ -42,15 +57,107 @@ function Results() {
       {nft != undefined ? (
         <>
           {totalQuarks != 0 ? (
-            <div className="mt-8 flex flex-col items-center justify-center">
-              <p>Total Quarks: </p>
-              <p>
-                {totalQuarks.toString().length < 7
-                  ? totalQuarks / 1000 + " K"
-                  : (totalQuarks / 1000000).toFixed(3) + " M"}
+            <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+              <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                Total Quarks:{" "}
               </p>
+              <div className="flex space-x-2 p-2">
+                <p>
+                  {totalQuarks.toString().length < 7
+                    ? totalQuarks / 1000 + " K"
+                    : (totalQuarks / 1000000).toFixed(3) + " M"}
+                </p>
+              </div>
             </div>
-          ) : null}
+          ) : (
+            <div>
+              {nft.length > 1 ? (
+                <div className="flex flex-col items-center justify-center space-y-1">
+                  <div className="flex flex-col space-y-1 md:flex-row md:space-y-0 md:space-x-2">
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                          Owners:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <p>{collectionStats.stats.num_owners}</p>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
+                          Floor:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <Image
+                            className=""
+                            src="/images/eth-logo.png"
+                            width={15}
+                            height={15}
+                          />
+                          <p className="">
+                            {collectionStats.stats.floor_price.toFixed(3)}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                          Avg Price:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <Image
+                            className=""
+                            src="/images/eth-logo.png"
+                            width={15}
+                            height={15}
+                          />
+                          <p>
+                            {collectionStats.stats.average_price.toFixed(2)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
+                          24h Sales:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <p>{collectionStats.stats.one_day_sales}</p>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
+                          Total Sales:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <p>{collectionStats.stats.total_sales}</p>
+                        </div>
+                      </div>
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
+                          Volume:{" "}
+                        </p>
+                        <div className="flex space-x-2 p-2">
+                          <Image
+                            className=""
+                            src="/images/eth-logo.png"
+                            width={15}
+                            height={15}
+                          />
+                          <p>{collectionStats.stats.total_volume.toFixed(2)}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h1 className="text-xs text-black dark:text-white">
+                      Stats fetched from OpenSea
+                    </h1>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )}
           {nft.length > 0 ? (
             <>
               <div

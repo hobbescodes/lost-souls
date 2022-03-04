@@ -11,16 +11,17 @@ function NftCard({ nft }) {
   const [isCopied, setIsCopied] = useState(false);
   const { Moralis } = useMoralis();
 
+  //Opens Modal for each NFT and triggers function to find owner of clicked NFT
+  function openModal() {
+    setIsOpen(true);
+    getNFTOwner(nft.attributes.tokenId);
+  }
+
   //Closes Modal for each NFT, resets variables
   function closeModal() {
     setIsOpen(false);
     setOwner("");
     setIsCopied(false);
-  }
-
-  //Truncates an address to the form of 0xEE..EEEE
-  function truncateHash(hash, length = 38) {
-    return hash.replace(hash.substring(4, length), "..");
   }
 
   //Finds the current owner of a given NFT, provided a Token ID. Checks to see if there is an ENS domain attached to owner's wallet address
@@ -45,10 +46,9 @@ function NftCard({ nft }) {
     }
   };
 
-  //Opens Modal for each NFT and triggers function to find owner of clicked NFT
-  function openModal() {
-    setIsOpen(true);
-    getNFTOwner(nft.attributes.tokenId);
+  //Truncates an address to the form of 0xEE..EEEE
+  function truncateHash(hash, length = 38) {
+    return hash.replace(hash.substring(4, length), "..");
   }
 
   //Copies value to clipboard, unsure if this works on all browsers/OS

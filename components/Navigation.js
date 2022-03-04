@@ -89,7 +89,7 @@ function Navigation() {
     }
   };
 
-  // Easter Egg: Specifies the lowest price a Lost Soul has transfer for in the past 24 hours
+  // Easter Egg: Specifies the lowest price a Lost Soul has transferred for in the past 24 hours
   const sniperNFT = async () => {
     await Moralis.start({
       serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
@@ -105,6 +105,16 @@ function Navigation() {
     );
 
     setSniperPrice(NFTLowestPrice.price / Math.pow(10, 18));
+  };
+
+  //Reset function to eliminate any filters
+  const resetNFTs = async () => {
+    const nfts = await Moralis.Cloud.run("LostSouls");
+
+    let allNFTs = nfts;
+    setNft(allNFTs);
+    setLimit(10);
+    setTotalQuarks(0);
   };
 
   //OnClick for Address: 1) resets variables 2) Checks if input is a valid address or ENS domain, if not resets other variables
@@ -153,16 +163,6 @@ function Navigation() {
     setLimit(10);
     setTotalQuarks(0);
     filteredNFTs(index, value);
-  };
-
-  //Reset function to eliminate any filters
-  const resetNFTs = async () => {
-    const nfts = await Moralis.Cloud.run("LostSouls");
-
-    let allNFTs = nfts;
-    setNft(allNFTs);
-    setLimit(10);
-    setTotalQuarks(0);
   };
 
   //OnClick for Reset: first setNft(undefined) to clear nfts
