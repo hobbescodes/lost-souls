@@ -129,7 +129,7 @@ function Navigation() {
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setTotalLand(response.totalAvailableLand);
       })
       .catch((err) => console.error(err));
