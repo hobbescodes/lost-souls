@@ -9,12 +9,14 @@ function NftCard({ nft }) {
   let [isOpen, setIsOpen] = useState(false);
   const [owner, setOwner] = useState("");
   const [isCopied, setIsCopied] = useState(false);
+  const [tokenPrice, setTokenPrice] = useState("");
   const { Moralis } = useMoralis();
 
   //Opens Modal for each NFT and triggers function to find owner of clicked NFT
   function openModal() {
     setIsOpen(true);
     getNFTOwner(nft.attributes.tokenId);
+    tokenDetails(nft.attributes.tokenId);
   }
 
   //Closes Modal for each NFT, resets variables
@@ -22,6 +24,7 @@ function NftCard({ nft }) {
     setIsOpen(false);
     setOwner("");
     setIsCopied(false);
+    setTokenPrice("");
   }
 
   //Finds the current owner of a given NFT, provided a Token ID. Checks to see if there is an ENS domain attached to owner's wallet address
@@ -56,6 +59,28 @@ function NftCard({ nft }) {
     navigator.clipboard.writeText(value);
     setIsCopied(true);
   }
+
+  //Fetch token listing price if available from Ecto API
+  const tokenDetails = (tokenId) => {
+    const options = { method: "GET" };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_TOKEN_API}${tokenId}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        //console.log(response);
+        if (response.listingStatus == "listed") {
+          // console.log(response);
+          setTokenPrice(response.msg.price);
+        } else {
+          // console.log(response);
+          setTokenPrice("Not Listed");
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div>
@@ -191,13 +216,38 @@ function NftCard({ nft }) {
                       </div>
                     )}
                     {isCopied ? <p className="text-xs">Copied!</p> : null}
+                    {tokenPrice != "" ? (
+                      <div className="flex flex-col items-center justify-center space-y-1">
+                        <p className="text-green-400">Price:</p>
+                        <div className="flex space-x-2 p-2">
+                          {tokenPrice != "Not Listed" ? (
+                            <Image
+                              className=""
+                              src="/images/eth-logo.png"
+                              width={15}
+                              height={15}
+                            />
+                          ) : null}
+                          <p className="">{tokenPrice}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center space-y-1">
+                        <p className="text-green-400">Price:</p>
+                        <p>Fetching...</p>
+                      </div>
+                    )}
                   </div>
                   <div className="flex flex-col justify-between space-y-1 divide-y divide-solid px-3 text-sm">
                     <div className="flex justify-between space-x-2">
                       <p className="font-bold">Score:</p>
-                      <p className="font-normal text-green-400">{`${nft.attributes.rarity.toFixed(
-                        2
-                      )}`}</p>
+                      {nft.attributes.rank < 22 ? (
+                        <p className="font-normal text-green-400">5000</p>
+                      ) : (
+                        <p className="font-normal text-green-400">{`+${nft.attributes.rarity.toFixed(
+                          2
+                        )}`}</p>
+                      )}
                     </div>
 
                     {nft.attributes.attributes.map((e, index) => {
@@ -214,9 +264,13 @@ function NftCard({ nft }) {
                               </p>
                             </div>
 
-                            <p className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
-                              2
-                            )}`}</p>
+                            {nft.attributes.rank < 22 ? (
+                              <p className="font-normal text-blue-400">+1000</p>
+                            ) : (
+                              <p className="font-normal text-blue-400">{`+${e.rarityScore.toFixed(
+                                2
+                              )}`}</p>
+                            )}
                           </div>
                         );
                       } else {

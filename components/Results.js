@@ -13,6 +13,10 @@ function Results() {
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [nft, setNft] = useRecoilState(nftsState);
   const [collectionStats, setCollectionStats] = useState(null);
+  const [commonPrice, setCommonPrice] = useState("");
+  const [uncommonPrice, setUncommonPrice] = useState("");
+  const [rarePrice, setRarePrice] = useState("");
+  const [superRarePrice, setSuperRarePrice] = useState("");
   const { Moralis } = useMoralis();
 
   //Updates the limit of NFTs displayed
@@ -45,11 +49,31 @@ function Results() {
       .catch((err) => console.error(err));
   };
 
+  //Fetch floor prices for each rarity class using the Ecto API
+  const rarityPrices = () => {
+    const options = { method: "GET" };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_PRICING_API}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        //console.log(response);
+        setCommonPrice(response.commonPrice.price);
+        setUncommonPrice(response.uncommonPrice.price);
+        setRarePrice(response.rarePrice.price);
+        setSuperRarePrice(response.superPrice.price);
+      })
+      .catch((err) => console.error(err));
+  };
+
   //Fetch all NFTs, (re)initializes quarks, and collects stats on mount
   useEffect(() => {
     allNFTs();
     setTotalQuarks(0);
     collectStats();
+    rarityPrices();
   }, []);
 
   return (
@@ -59,7 +83,7 @@ function Results() {
           {totalQuarks != 0 ? (
             <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
               <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                Total Quarks:{" "}
+                Total Quarks
               </p>
               <div className="flex space-x-2 p-2">
                 <p>
@@ -77,7 +101,7 @@ function Results() {
                     <div className="flex items-center justify-center space-x-2">
                       <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                          Owners:{" "}
+                          Holders
                         </p>
                         <div className="flex space-x-2 p-2">
                           <p>{collectionStats.stats.num_owners}</p>
@@ -85,73 +109,91 @@ function Results() {
                       </div>
                       <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
-                          Floor:{" "}
+                          Common
                         </p>
                         <div className="flex space-x-2 p-2">
-                          <Image
-                            className=""
-                            src="/images/eth-logo.png"
-                            width={15}
-                            height={15}
-                          />
-                          <p className="">
-                            {collectionStats.stats.floor_price.toFixed(3)}
-                          </p>
+                          {commonPrice != "None-listed" ? (
+                            <>
+                              <Image
+                                className=""
+                                src="/images/eth-logo.png"
+                                width={15}
+                                height={15}
+                              />
+                              <p className="">{commonPrice}</p>
+                            </>
+                          ) : (
+                            <p className="">None Listed</p>
+                          )}
                         </div>
                       </div>
                       <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                          Avg Price:{" "}
+                          Uncommon
                         </p>
                         <div className="flex space-x-2 p-2">
-                          <Image
-                            className=""
-                            src="/images/eth-logo.png"
-                            width={15}
-                            height={15}
-                          />
-                          <p>
-                            {collectionStats.stats.average_price.toFixed(3)}
-                          </p>
+                          {uncommonPrice != "None-listed" ? (
+                            <>
+                              <Image
+                                className=""
+                                src="/images/eth-logo.png"
+                                width={15}
+                                height={15}
+                              />
+                              <p className="">{uncommonPrice}</p>
+                            </>
+                          ) : (
+                            <p className="">None Listed</p>
+                          )}
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
-                          24h Sales:{" "}
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[26px] dark:bg-[#6a3fe4]">
+                          Rare
                         </p>
                         <div className="flex space-x-2 p-2">
-                          <p>{collectionStats.stats.one_day_sales}</p>
+                          {rarePrice != "None-listed" ? (
+                            <>
+                              <Image
+                                className=""
+                                src="/images/eth-logo.png"
+                                width={15}
+                                height={15}
+                              />
+                              <p className="">{rarePrice}</p>
+                            </>
+                          ) : (
+                            <p className="">None Listed</p>
+                          )}
                         </div>
                       </div>
-                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[10px] dark:bg-[#6a3fe4]">
-                          Total Sales:{" "}
+                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                          Super Rare
                         </p>
                         <div className="flex space-x-2 p-2">
-                          <p>{collectionStats.stats.total_sales}</p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
-                          Volume:{" "}
-                        </p>
-                        <div className="flex space-x-2 p-2">
-                          <Image
-                            className=""
-                            src="/images/eth-logo.png"
-                            width={15}
-                            height={15}
-                          />
-                          <p>{collectionStats.stats.total_volume.toFixed(2)}</p>
+                          {superRarePrice != "None-listed" ? (
+                            <>
+                              <Image
+                                className=""
+                                src="/images/eth-logo.png"
+                                width={15}
+                                height={15}
+                              />
+                              <p className="">{superRarePrice}</p>
+                            </>
+                          ) : (
+                            <p className="">None Listed</p>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div>
                     <h1 className="text-xs text-black dark:text-white">
-                      Stats fetched from OpenSea
+                      Floor prices fetched from Ecto API
                     </h1>
                   </div>
                 </div>
