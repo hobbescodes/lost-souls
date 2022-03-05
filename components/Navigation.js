@@ -26,7 +26,6 @@ function Navigation() {
   const [tokenIds, setTokenIds] = useState([]);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [totalLand, setTotalLand] = useRecoilState(totalLandState);
-  const [sniperPrice, setSniperPrice] = useState(null);
 
   const allHeadware = headware.sort();
 
@@ -89,24 +88,6 @@ function Navigation() {
       setTotalQuarks(totalQuarks);
       setTokenIds([]);
     }
-  };
-
-  // Easter Egg: Specifies the lowest price a Lost Soul has transferred for in the past 24 hours
-  const sniperNFT = async () => {
-    await Moralis.start({
-      serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-      appId: process.env.NEXT_PUBLIC_APP_ID,
-    });
-
-    const options = {
-      address: contractAddress,
-      days: "1",
-    };
-    const NFTLowestPrice = await Moralis.Web3API.token.getNFTLowestPrice(
-      options
-    );
-
-    setSniperPrice(NFTLowestPrice.price / Math.pow(10, 18));
   };
 
   //Reset function to eliminate any filters
@@ -197,7 +178,7 @@ function Navigation() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4 bg-zinc-100 text-black dark:bg-black dark:text-white md:flex-row md:space-y-0 md:space-x-4">
+    <div className="relative flex flex-col items-center justify-center space-y-4 bg-zinc-100 text-black dark:bg-black dark:text-white md:right-2 md:flex-row md:space-y-0 md:space-x-4">
       <div className="flex items-center justify-center">
         <div className="relative mb-4 rounded-md transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer md:mb-0">
           <ThemeChanger />
@@ -207,7 +188,7 @@ function Navigation() {
             <SearchIcon className="h-5 w-5 text-gray-400" />
           </div>
           <input
-            className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-black selection:bg-blue-200 focus:border-[#486cdc] focus:ring-[#486cdc] sm:text-sm"
+            className="block w-full rounded-md border-gray-300 bg-gray-50 pl-10 text-sm text-black selection:bg-blue-200 focus:border-[#486cdc] focus:ring-[#486cdc]"
             type="text"
             placeholder="Token ID or Address"
             onChange={(e) => setTokenOrAddress(e.target.value)}
@@ -215,7 +196,7 @@ function Navigation() {
         </div>
       </div>
 
-      <div className="relative flex items-center justify-center space-x-2">
+      <div className="relative right-8 flex items-center justify-center space-x-2 md:right-0">
         <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
           <button
             className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
@@ -240,102 +221,94 @@ function Navigation() {
             Reset
           </button>
         </div>
-        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          <button
-            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
-            onClick={() => sniperNFT()}
-          >
-            {sniperPrice != null ? sniperPrice + " ETH" : "Sniper"}
-          </button>
+        <div className="relative z-20 w-[20px] items-center justify-center">
+          <Menu as="div" className="relative inline-block text-left">
+            <div className="rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+              <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-gray-50 px-4 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white">
+                <div className="flex">
+                  Filter
+                  <ChevronDownIcon
+                    className="ml-2 -mr-1 h-5 w-5 text-cyan-700 hover:text-cyan-500 dark:text-violet-700 dark:hover:text-violet-500"
+                    aria-hidden="true"
+                  />
+                </div>
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none md:right-0">
+                <div className="max-h-[240px] overflow-y-scroll px-1 py-1">
+                  {backgrounds.map((background, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => retrieveFilteredNFTs(0, background)}
+                        className="group flex w-full
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                      >
+                        Background: {background}
+                      </button>
+                    </Menu.Item>
+                  ))}
+
+                  {bodies.map((body, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => retrieveFilteredNFTs(1, body)}
+                        className="group flex w-full
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                      >
+                        Body: {body}
+                      </button>
+                    </Menu.Item>
+                  ))}
+
+                  {allHeadware.map((headware, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => retrieveFilteredNFTs(2, headware)}
+                        className="group flex w-full
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                      >
+                        Headware: {headware}
+                      </button>
+                    </Menu.Item>
+                  ))}
+
+                  {allFaces.map((face, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => retrieveFilteredNFTs(3, face)}
+                        className="group flex w-full
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                      >
+                        Face: {face}
+                      </button>
+                    </Menu.Item>
+                  ))}
+
+                  {allShirts.map((shirt, index) => (
+                    <Menu.Item key={index}>
+                      <button
+                        onClick={() => retrieveFilteredNFTs(4, shirt)}
+                        className="group flex w-full
+                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                      >
+                        Shirt: {shirt}
+                      </button>
+                    </Menu.Item>
+                  ))}
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
         </div>
-      </div>
-      <div className="relative right-8 z-20 w-[20px] items-center justify-center md:right-0">
-        <Menu as="div" className="relative inline-block text-left">
-          <div className="rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-            <Menu.Button className="relative inline-flex w-full justify-center rounded-md bg-gray-50 px-4 py-2 text-sm font-medium text-black dark:bg-zinc-900 dark:text-white">
-              <div className="flex">
-                Filter
-                <ChevronDownIcon
-                  className="ml-2 -mr-1 h-5 w-5 text-cyan-700 hover:text-cyan-500 dark:text-violet-700 dark:hover:text-violet-500"
-                  aria-hidden="true"
-                />
-              </div>
-            </Menu.Button>
-          </div>
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none md:right-0">
-              <div className="max-h-[240px] overflow-y-scroll px-1 py-1">
-                {backgrounds.map((background, index) => (
-                  <Menu.Item key={index}>
-                    <button
-                      onClick={() => retrieveFilteredNFTs(0, background)}
-                      className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
-                    >
-                      Background: {background}
-                    </button>
-                  </Menu.Item>
-                ))}
-
-                {bodies.map((body, index) => (
-                  <Menu.Item key={index}>
-                    <button
-                      onClick={() => retrieveFilteredNFTs(1, body)}
-                      className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
-                    >
-                      Body: {body}
-                    </button>
-                  </Menu.Item>
-                ))}
-
-                {allHeadware.map((headware, index) => (
-                  <Menu.Item key={index}>
-                    <button
-                      onClick={() => retrieveFilteredNFTs(2, headware)}
-                      className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
-                    >
-                      Headware: {headware}
-                    </button>
-                  </Menu.Item>
-                ))}
-
-                {allFaces.map((face, index) => (
-                  <Menu.Item key={index}>
-                    <button
-                      onClick={() => retrieveFilteredNFTs(3, face)}
-                      className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
-                    >
-                      Face: {face}
-                    </button>
-                  </Menu.Item>
-                ))}
-
-                {allShirts.map((shirt, index) => (
-                  <Menu.Item key={index}>
-                    <button
-                      onClick={() => retrieveFilteredNFTs(4, shirt)}
-                      className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
-                    >
-                      Shirt: {shirt}
-                    </button>
-                  </Menu.Item>
-                ))}
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
       </div>
     </div>
   );

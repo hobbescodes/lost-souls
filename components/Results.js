@@ -164,7 +164,7 @@ function Results() {
                       </div>
                     </div>
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                      <div className="mt-0 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[26px] dark:bg-[#6a3fe4]">
                           Rare
                         </p>
@@ -184,7 +184,7 @@ function Results() {
                           )}
                         </div>
                       </div>
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                      <div className="mt-0 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
                           Super Rare
                         </p>
