@@ -7,10 +7,12 @@ import { limitState } from "../atoms/LimitAtom";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { totalQuarksState } from "../atoms/QuarksAtom";
+import { totalLandState } from "../atoms/LandAtom";
 
 function Results() {
   const [limit, setLimit] = useRecoilState(limitState);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
+  const [totalLand, setTotalLand] = useRecoilState(totalLandState);
   const [nft, setNft] = useRecoilState(nftsState);
   const [collectionStats, setCollectionStats] = useState(null);
   const [commonPrice, setCommonPrice] = useState("");
@@ -72,6 +74,7 @@ function Results() {
   useEffect(() => {
     allNFTs();
     setTotalQuarks(0);
+    setTotalLand(0);
     collectStats();
     rarityPrices();
   }, []);
@@ -81,16 +84,28 @@ function Results() {
       {nft != undefined ? (
         <>
           {totalQuarks != 0 ? (
-            <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-              <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                Total Quarks
-              </p>
-              <div className="flex space-x-2 p-2">
-                <p>
-                  {totalQuarks.toString().length < 7
-                    ? totalQuarks / 1000 + " K"
-                    : (totalQuarks / 1000000).toFixed(3) + " M"}
-                </p>
+            <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-2">
+              <div className="flex items-center justify-center space-x-2">
+                <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                  <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                    Total Quarks
+                  </p>
+                  <div className="flex space-x-2 p-2">
+                    <p>
+                      {totalQuarks.toString().length < 7
+                        ? totalQuarks / 1000 + " K"
+                        : (totalQuarks / 1000000).toFixed(3) + " M"}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
+                  <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
+                    Available Land
+                  </p>
+                  <div className="flex space-x-2 p-2">
+                    <p>{totalLand}</p>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (

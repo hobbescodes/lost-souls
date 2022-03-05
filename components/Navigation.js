@@ -16,6 +16,7 @@ import {
 } from "../exports/traitArrays";
 import { contractAddress } from "../exports/contractAddress";
 import ThemeChanger from "./ThemeChanger";
+import { totalLandState } from "../atoms/LandAtom";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
@@ -24,6 +25,7 @@ function Navigation() {
   const [limit, setLimit] = useRecoilState(limitState);
   const [tokenIds, setTokenIds] = useState([]);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
+  const [totalLand, setTotalLand] = useRecoilState(totalLandState);
   const [sniperPrice, setSniperPrice] = useState(null);
 
   const allHeadware = headware.sort();
@@ -115,6 +117,22 @@ function Navigation() {
     setNft(allNFTs);
     setLimit(10);
     setTotalQuarks(0);
+    setTotalLand(0);
+  };
+
+  const addressDetails = (ownerAddress) => {
+    const options = { method: "GET" };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_ADDRESS_API}${ownerAddress}`,
+      options
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        setTotalLand(response.totalAvailableLand);
+      })
+      .catch((err) => console.error(err));
   };
 
   //OnClick for Address: 1) resets variables 2) Checks if input is a valid address or ENS domain, if not resets other variables
@@ -124,18 +142,22 @@ function Navigation() {
 
     if (isAddress(tokenOrAddress) == true) {
       addressNFTs(tokenOrAddress);
+      addressDetails(tokenOrAddress);
     } else {
       try {
         const web3Provider = await Moralis.enableWeb3();
         const address = await web3Provider.resolveName(tokenOrAddress);
         if (address != null) {
           addressNFTs(address);
+          addressDetails(address);
         } else {
           setTotalQuarks(0);
+          setTotalLand(0);
           setNft([]);
         }
       } catch {
         setTotalQuarks(0);
+        setTotalLand(0);
         setNft([]);
       }
     }
@@ -145,6 +167,7 @@ function Navigation() {
   const retrieveNFT = () => {
     setNft(undefined);
     setTotalQuarks(0);
+    setTotalLand(0);
     if (
       tokenOrAddress % 1 == 0 &&
       tokenOrAddress > 0 &&
@@ -153,6 +176,7 @@ function Navigation() {
       getNFT();
     } else {
       setTotalQuarks(0);
+      setTotalLand(0);
       setNft([]);
     }
   };
@@ -162,6 +186,7 @@ function Navigation() {
     setNft(undefined);
     setLimit(10);
     setTotalQuarks(0);
+    setTotalLand(0);
     filteredNFTs(index, value);
   };
 
