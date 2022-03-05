@@ -101,11 +101,12 @@ function Navigation() {
     setTotalLand(0);
   };
 
+  //Fetches the total Available Land for a given address using the Ecto API
   const addressDetails = (ownerAddress) => {
     const options = { method: "GET" };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_ADDRESS_API}${ownerAddress}`,
+      `${process.env.NEXT_PUBLIC_PROXY_URL}https://test.ecto.xyz/analytics/address/${ownerAddress}`,
       options
     )
       .then((response) => response.json())

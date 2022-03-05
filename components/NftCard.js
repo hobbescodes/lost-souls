@@ -65,7 +65,7 @@ function NftCard({ nft }) {
     const options = { method: "GET" };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_TOKEN_API}${tokenId}`,
+      `${process.env.NEXT_PUBLIC_PROXY_URL}https://test.ecto.xyz/analytics/token/${tokenId}`,
       options
     )
       .then((response) => response.json())

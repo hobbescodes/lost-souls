@@ -56,7 +56,7 @@ function Results() {
     const options = { method: "GET" };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_PRICING_API}`,
+      `${process.env.NEXT_PUBLIC_PROXY_URL}https://test.ecto.xyz/analytics/pricing`,
       options
     )
       .then((response) => response.json())
