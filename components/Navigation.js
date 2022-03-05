@@ -244,7 +244,7 @@ function Navigation() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute -right-[66px] mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none md:right-0">
+              <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-solid divide-gray-500 rounded-md bg-white shadow-lg focus:outline-none">
                 <div className="max-h-[240px] overflow-y-scroll px-1 py-1">
                   {backgrounds.map((background, index) => (
                     <Menu.Item key={index}>
