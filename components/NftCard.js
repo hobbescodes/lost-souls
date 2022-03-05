@@ -64,10 +64,7 @@ function NftCard({ nft }) {
   const tokenDetails = (tokenId) => {
     const options = { method: "GET" };
 
-    fetch(
-      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_TOKEN_API}${tokenId}`,
-      options
-    )
+    fetch(`${process.env.NEXT_PUBLIC_TOKEN_API}${tokenId}`, options)
       .then((response) => response.json())
       .then((response) => {
         //console.log(response);

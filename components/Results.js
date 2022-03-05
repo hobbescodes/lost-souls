@@ -53,10 +53,7 @@ function Results() {
   const rarityPrices = () => {
     const options = { method: "GET" };
 
-    fetch(
-      `${process.env.NEXT_PUBLIC_PROXY_URL}${process.env.NEXT_PUBLIC_PRICING_API}`,
-      options
-    )
+    fetch(`${process.env.NEXT_PUBLIC_PRICING_API}`, options)
       .then((response) => response.json())
       .then((response) => {
         //console.log(response);
