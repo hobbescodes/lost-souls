@@ -14,7 +14,6 @@ function Results() {
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [totalLand, setTotalLand] = useRecoilState(totalLandState);
   const [nft, setNft] = useRecoilState(nftsState);
-  const [collectionStats, setCollectionStats] = useState(null);
   const [commonPrice, setCommonPrice] = useState("");
   const [uncommonPrice, setUncommonPrice] = useState("");
   const [rarePrice, setRarePrice] = useState("");
@@ -36,19 +35,6 @@ function Results() {
 
     let allNFTs = nfts;
     setNft(allNFTs);
-  };
-
-  //Uses OpenSea API to collect stats about the Lost Souls Sanctuary collection
-  const collectStats = () => {
-    const options = { method: "GET", headers: { Accept: "application/json" } };
-
-    fetch(
-      "https://api.opensea.io/api/v1/collection/lostsoulssanctuary/stats",
-      options
-    )
-      .then((response) => response.json())
-      .then((response) => setCollectionStats(response))
-      .catch((err) => console.error(err));
   };
 
   //Fetch floor prices for each rarity class using the Ecto API
@@ -75,7 +61,6 @@ function Results() {
     allNFTs();
     setTotalQuarks(0);
     setTotalLand(0);
-    collectStats();
     rarityPrices();
   }, []);
 
@@ -114,14 +99,6 @@ function Results() {
                 <div className="flex flex-col items-center justify-center space-y-1">
                   <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-2">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                          Holders
-                        </p>
-                        <div className="flex space-x-2 p-2">
-                          <p>{collectionStats.stats.num_owners}</p>
-                        </div>
-                      </div>
                       <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
                         <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
                           Common

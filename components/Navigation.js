@@ -17,6 +17,7 @@ import {
 import { contractAddress } from "../exports/contractAddress";
 import ThemeChanger from "./ThemeChanger";
 import { totalLandState } from "../atoms/LandAtom";
+import { useRouter } from "next/router";
 
 function Navigation() {
   const [tokenOrAddress, setTokenOrAddress] = useState(null);
@@ -26,6 +27,7 @@ function Navigation() {
   const [tokenIds, setTokenIds] = useState([]);
   const [totalQuarks, setTotalQuarks] = useRecoilState(totalQuarksState);
   const [totalLand, setTotalLand] = useRecoilState(totalLandState);
+  const router = useRouter();
 
   const allHeadware = headware.sort();
 
@@ -180,7 +182,7 @@ function Navigation() {
 
   return (
     <div className="relative flex flex-col items-center justify-center space-y-4 bg-zinc-100 text-black dark:bg-black dark:text-white md:right-2 md:flex-row md:space-y-0 md:space-x-4">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center space-x-2">
         <div className="relative mb-4 rounded-md transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer md:mb-0">
           <ThemeChanger />
         </div>
@@ -194,6 +196,14 @@ function Navigation() {
             placeholder="Token ID or Address"
             onChange={(e) => setTokenOrAddress(e.target.value)}
           />
+        </div>
+        <div className="relative mb-4 rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4] md:mb-0">
+          <button
+            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
+            onClick={() => router.push("/whales")}
+          >
+            4,4
+          </button>
         </div>
       </div>
 
