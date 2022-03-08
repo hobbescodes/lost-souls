@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { LinkIcon as OpenSea, XIcon } from "@heroicons/react/outline";
 import { useMoralis } from "react-moralis";
-import { contractAddress } from "../exports/contractAddress";
+import { createClient } from "urql";
 
 function NftCard({ nft }) {
   let [isOpen, setIsOpen] = useState(false);
@@ -15,8 +15,8 @@ function NftCard({ nft }) {
   //Opens Modal for each NFT and triggers function to find owner of clicked NFT
   function openModal() {
     setIsOpen(true);
-    getNFTOwner(nft.attributes.tokenId);
     tokenDetails(nft.attributes.tokenId);
+    findOwner(nft.attributes.tokenId);
   }
 
   //Closes Modal for each NFT, resets variables
@@ -28,25 +28,40 @@ function NftCard({ nft }) {
   }
 
   //Finds the current owner of a given NFT, provided a Token ID. Checks to see if there is an ENS domain attached to owner's wallet address
-  const getNFTOwner = async (token_id) => {
-    await Moralis.start({
-      serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-      appId: process.env.NEXT_PUBLIC_APP_ID,
+  const findOwner = async (tokenId) => {
+    const APIURL = process.env.NEXT_PUBLIC_SUBGRAPH_URL;
+
+    const query = `
+  query {
+      tokens (where: {id: ${tokenId.toString()}}) {
+        id
+        owner {
+          id
+        }
+      }
+  }`;
+
+    const client = createClient({
+      url: APIURL,
     });
 
-    const options = {
-      address: contractAddress,
-      token_id,
-    };
-    const tokenIdOwner = await Moralis.Web3API.token.getTokenIdOwners(options);
+    async function fetchData() {
+      await Moralis.start({
+        serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+        appId: process.env.NEXT_PUBLIC_APP_ID,
+      });
 
-    const options2 = { address: tokenIdOwner.result[0].owner_of };
-    try {
-      const resolve = await Moralis.Web3API.resolve.resolveAddress(options2);
-      setOwner(resolve.name);
-    } catch {
-      setOwner(tokenIdOwner.result[0].owner_of);
+      const response = await client.query(query).toPromise();
+      const options = { address: response.data?.tokens[0].owner.id };
+      try {
+        const resolve = await Moralis.Web3API.resolve.resolveAddress(options);
+        setOwner(resolve.name);
+      } catch {
+        setOwner(response.data?.tokens[0].owner.id);
+      }
     }
+
+    fetchData();
   };
 
   //Truncates an address to the form of 0xEE..EEEE
