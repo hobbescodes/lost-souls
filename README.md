@@ -16,7 +16,7 @@ Some unique statistics (unique to the LSS collection) that it provides are:
 The rarity rankings presented are put together to line up directly with Rarity Tools (given room for rounding).
 
 If you want to learn more about the LSS collections and the place they fit into the Ectoverse,
-please visit [https://docs.ecto.xyz/lost-souls/about]
+please visit https://docs.ecto.xyz/lost-souls/about
 
 If you would like to fork the project, and tinker around, the directions below should guide.
 This project was bootstrapped with Create Next App and is currently in constant development.
