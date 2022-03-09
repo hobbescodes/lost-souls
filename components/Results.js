@@ -71,10 +71,8 @@ function Results() {
           {totalQuarks != 0 ? (
             <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-2">
               <div className="flex items-center justify-center space-x-2">
-                <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-                  <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                    Total Quarks
-                  </p>
+                <div className="statsContainer mt-8">
+                  <p className="statsTitle px-[16px]">Total Quarks</p>
                   <div className="flex space-x-2 p-2">
                     <p>
                       {totalQuarks.toString().length < 7
@@ -83,10 +81,8 @@ function Results() {
                     </p>
                   </div>
                 </div>
-                <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-                  <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                    Available Land
-                  </p>
+                <div className="statsContainer mt-8">
+                  <p className="statsTitle px-[16px]">Available Land</p>
                   <div className="flex space-x-2 p-2">
                     <p>{totalLand}</p>
                   </div>
@@ -99,10 +95,8 @@ function Results() {
                 <div className="flex flex-col items-center justify-center space-y-1">
                   <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-2">
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[22px] dark:bg-[#6a3fe4]">
-                          Common
-                        </p>
+                      <div className="statsContainer mt-8">
+                        <p className="statsTitle px-[22px]">Common</p>
                         <div className="flex space-x-2 p-2">
                           {commonPrice != "None-listed" ? (
                             <>
@@ -119,10 +113,8 @@ function Results() {
                           )}
                         </div>
                       </div>
-                      <div className="mt-8 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4]">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                          Uncommon
-                        </p>
+                      <div className="statsContainer mt-8">
+                        <p className="statsTitle px-[16px]">Uncommon</p>
                         <div className="flex space-x-2 p-2">
                           {uncommonPrice != "None-listed" ? (
                             <>
@@ -141,10 +133,8 @@ function Results() {
                       </div>
                     </div>
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="mt-0 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[26px] dark:bg-[#6a3fe4]">
-                          Rare
-                        </p>
+                      <div className="statsContainer mt-0 md:mt-8">
+                        <p className="statsTitle px-[26px]">Rare</p>
                         <div className="flex space-x-2 p-2">
                           {rarePrice != "None-listed" ? (
                             <>
@@ -161,10 +151,8 @@ function Results() {
                           )}
                         </div>
                       </div>
-                      <div className="mt-0 flex flex-col items-center justify-center rounded-lg border border-[#14aed0] dark:border-[#6a3fe4] md:mt-8">
-                        <p className="rounded-t-md bg-[#14aed0] object-fill py-1 px-[16px] dark:bg-[#6a3fe4]">
-                          Super Rare
-                        </p>
+                      <div className="statsContainer mt-0 md:mt-8">
+                        <p className="statsTitle px-[16px]">Super Rare</p>
                         <div className="flex space-x-2 p-2">
                           {superRarePrice != "None-listed" ? (
                             <>

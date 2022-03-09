@@ -197,38 +197,26 @@ function Navigation() {
             onChange={(e) => setTokenOrAddress(e.target.value)}
           />
         </div>
-        <div className="relative mb-4 rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4] md:mb-0">
-          <button
-            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
-            onClick={() => router.push("/whales")}
-          >
+        <div className="navBtnContainer mb-4 md:mb-0">
+          <button className="navBtn" onClick={() => router.push("/whales")}>
             4,4
           </button>
         </div>
       </div>
 
       <div className="relative right-8 flex items-center justify-center space-x-2 md:right-0">
-        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          <button
-            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
-            onClick={() => retrieveNFT()}
-          >
+        <div className="navBtnContainer">
+          <button className="navBtn" onClick={() => retrieveNFT()}>
             Find a Soul
           </button>
         </div>
-        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          <button
-            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
-            onClick={() => retrieveAddressNFTs()}
-          >
+        <div className="navBtnContainer">
+          <button className="navBtn" onClick={() => retrieveAddressNFTs()}>
             Address
           </button>
         </div>
-        <div className="relative rounded-lg border border-[#14aed0] transition-all duration-150 ease-out hover:scale-110 hover:cursor-pointer dark:border-[#6a3fe4]">
-          <button
-            className="relative items-center justify-center rounded-lg bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-900 dark:text-white"
-            onClick={() => reset()}
-          >
+        <div className="navBtnContainer">
+          <button className="navBtn" onClick={() => reset()}>
             Reset
           </button>
         </div>
@@ -260,8 +248,7 @@ function Navigation() {
                     <Menu.Item key={index}>
                       <button
                         onClick={() => retrieveFilteredNFTs(0, background)}
-                        className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                        className="menuItemBtn group"
                       >
                         Background: {background}
                       </button>
@@ -272,8 +259,7 @@ function Navigation() {
                     <Menu.Item key={index}>
                       <button
                         onClick={() => retrieveFilteredNFTs(1, body)}
-                        className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                        className="menuItemBtn group"
                       >
                         Body: {body}
                       </button>
@@ -284,8 +270,7 @@ function Navigation() {
                     <Menu.Item key={index}>
                       <button
                         onClick={() => retrieveFilteredNFTs(2, headware)}
-                        className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                        className="menuItemBtn group"
                       >
                         Headware: {headware}
                       </button>
@@ -296,8 +281,7 @@ function Navigation() {
                     <Menu.Item key={index}>
                       <button
                         onClick={() => retrieveFilteredNFTs(3, face)}
-                        className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                        className="menuItemBtn group"
                       >
                         Face: {face}
                       </button>
@@ -308,8 +292,7 @@ function Navigation() {
                     <Menu.Item key={index}>
                       <button
                         onClick={() => retrieveFilteredNFTs(4, shirt)}
-                        className="group flex w-full
-                          items-center rounded-md px-2 py-2 text-sm text-gray-900 hover:bg-cyan-500 hover:text-white dark:hover:bg-violet-500"
+                        className="menuItemBtn group"
                       >
                         Shirt: {shirt}
                       </button>
