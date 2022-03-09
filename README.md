@@ -1,4 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a Rarity Ranking App that is customly designed for the Lost Souls Sanctuary collection.
+It provides utility to:
+
+1. Search by Token ID for individual rarity stats
+2. Search by address or ENS domain for comprehensive stats about a wallets LSS holdings
+3. Filter by attribute type
+4. Provides Rarity floor statistics fetched from the Ecto API about floor prices of a given rarity rank
+5. Provides a "Hall of Fame" of the top holders
+6. Provides current listing price of an individual token (if it is listed on OpenSea)
+
+Some unique statistics (unique to the LSS collection) that it provides are:
+
+1. Total Quark value of a given wallet address (or ENS domain)
+2. Total available land for a given wallet address (or ENS domain)
+
+The rarity rankings presented are put together to line up directly with Rarity Tools (given room for rounding).
+
+If you want to learn more about the LSS collections and the place they fit into the Ectoverse,
+please visit [https://docs.ecto.xyz/lost-souls/about]
+
+If you would like to fork the project, and tinker around, the directions below should guide.
+This project was bootstrapped with Create Next App and is currently in constant development.
 
 ## Getting Started
 
