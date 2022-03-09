@@ -10,8 +10,8 @@ It provides utility to:
 
 Some unique statistics (unique to the LSS collection) that it provides are:
 
-1. Total Quark value of a given wallet address (or ENS domain)
-2. Total available land for a given wallet address (or ENS domain)
+1. Total Quark value of a searched wallet address (or ENS domain)
+2. Total available land for a searched wallet address (or ENS domain)
 
 The rarity rankings presented are put together to line up directly with Rarity Tools (given room for rounding).
 
