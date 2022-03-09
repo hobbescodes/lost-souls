@@ -18,7 +18,7 @@ The rarity rankings presented are put together to line up directly with Rarity T
 If you want to learn more about the LSS collection and the place they fit into the Ectoverse,
 please visit https://docs.ecto.xyz/lost-souls/about
 
-If you would like to fork the project, and tinker around, the directions below should guide.
+If you would like to fork the project, and tinker around, the directions below should guide you.
 This project was bootstrapped with Create Next App and is currently in constant development.
 
 ## Getting Started
